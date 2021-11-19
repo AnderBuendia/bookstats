@@ -4,20 +4,20 @@ import type {
   GetServerSidePropsContext,
 } from 'next';
 import { getSession } from 'next-auth/react';
+import { isRequestSSR } from '@Lib/utils/ssr.utils';
 import MainLayout from '@Components/Layouts/MainLayout';
-import Home from '@Components/Home';
+import CreateBookForm from '@Components/Forms/CreateBookForm';
 import { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { isRequestSSR } from '@Lib/utils/ssr.utils';
 
-const HomePage: NextPage = () => {
+const CreateBookPage: NextPage = () => {
   return (
     <MainLayout
       title="Home"
       description="List your books"
       url={MainPaths.INDEX}
     >
-      <Home />
+      <CreateBookForm />
     </MainLayout>
   );
 };
@@ -30,7 +30,17 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (isSSR) {
     const session = await getSession(ctx);
-    if (session) props.session = session;
+
+    if (!session) {
+      return {
+        redirect: {
+          destination: MainPaths.INDEX,
+          permanent: false,
+        },
+      };
+    }
+
+    props.session = session;
   }
 
   return {
@@ -38,4 +48,4 @@ export const getServerSideProps: GetServerSideProps = async (
   };
 };
 
-export default HomePage;
+export default CreateBookPage;
