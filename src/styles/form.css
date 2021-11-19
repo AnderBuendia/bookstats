@@ -1,0 +1,13 @@
+.btn-form {
+  @apply flex;
+  @apply flex-row;
+  @apply items-center;
+  @apply justify-center;
+  @apply text-white;
+  @apply w-full;
+  @apply mt-6;
+  @apply bg-pink-600;
+  @apply hover:bg-pink-800;
+  @apply p-2;
+  @apply rounded;
+}

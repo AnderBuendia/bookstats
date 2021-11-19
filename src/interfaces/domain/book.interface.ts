@@ -1,7 +1,7 @@
 import { BookStatus } from '@Enums/book-status.enum';
 
 export interface IBook {
-  id: string; // CHECK IN AWS APPSYNC BOOKSTATS
+  id: string;
   name: string;
   author: string;
   status: BookStatus;

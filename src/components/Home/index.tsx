@@ -3,18 +3,16 @@ import { useRouter } from 'next/router';
 import { useResolution } from '@Lib/hooks/useResolution';
 import { useSession } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
-// import Table from '@Components/generic/Table';
-// import Card from '@Components/generic/Card';
 import { HomeBooks } from '@Lib/utils/home-books';
+import Table from '@Components/generic/Table';
+import Card from '@Components/generic/Card';
 import { ResolutionBreakPoints } from '@Enums/config/resolution-breakpoints.enum';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 const Home: FC = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const width = useResolution();
   const router = useRouter();
-
-  console.log({ session, status });
 
   const handleClick = () => {
     if (session) return router.push(MainPaths.BOOKS);
@@ -45,11 +43,11 @@ const Home: FC = () => {
           <div className="w-3 h-3 ml-2 bg-green-500 rounded-full"></div>
         </div>
         <div className="bg-white p-6 px-4">
-          {/* {width > ResolutionBreakPoints.SM ? (
+          {width > ResolutionBreakPoints.SM ? (
             <Table books={HomeBooks} />
           ) : (
             <Card books={HomeBooks} />
-          )} */}
+          )}
         </div>
       </div>
     </div>
