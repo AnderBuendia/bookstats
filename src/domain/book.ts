@@ -1,4 +1,4 @@
-import { BookStatus } from '@Enums/book-status.enum';
+import { BookStatus } from '@prisma/client';
 
 const ACTIONS_COLOR_STATUS: {
   [x: string]: () => string;

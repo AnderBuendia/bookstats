@@ -1,20 +1,23 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import StarRating from '@Components/generic/StarRating';
-import { IBook } from '@Interfaces/domain/book.interface';
-import { MainPaths } from '@Enums/paths/main-paths.enum';
+import { useSession } from 'next-auth/react';
+import type { Book } from '@prisma/client';
 import { getColorStatus, readPagesAvgMins } from '@Domain/book';
+import { formatStatusText } from '@Lib/utils/format-text.utils';
+import StarRating from '@Components/generic/StarRating';
+import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 interface TableProps {
-  books: IBook[];
+  books: Book[];
 }
 
 const Table: FC<TableProps> = ({ books }) => {
   const { pathname } = useRouter();
+  const { data: session } = useSession();
 
   return (
-    <div className="w-full shadow overflow-x-auto border-b border-gray-200 rounded-lg">
+    <div className="shadow overflow-x-auto border-b border-gray-200 rounded-lg">
       <table className="w-full divide-y divide-gray-200">
         <thead className="bg-indigo-300">
           <tr>
@@ -31,9 +34,9 @@ const Table: FC<TableProps> = ({ books }) => {
               <Link
                 key={book.id}
                 href={
-                  pathname !== MainPaths.INDEX
-                    ? `${MainPaths.BOOKS}/${book.id}`
-                    : ''
+                  session && pathname !== MainPaths.INDEX
+                    ? `${MainPaths.BOOK}/${book.id}`
+                    : '#'
                 }
                 passHref
               >
@@ -52,7 +55,7 @@ const Table: FC<TableProps> = ({ books }) => {
                         book.status
                       )} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
                     >
-                      {book.status}
+                      {formatStatusText(book.status)}
                     </span>
                   </td>
                   <td className="text-gray-500 whitespace-nowrap">

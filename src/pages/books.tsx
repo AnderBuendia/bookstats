@@ -4,20 +4,25 @@ import type {
   GetServerSidePropsContext,
 } from 'next';
 import { getSession } from 'next-auth/react';
-import { isRequestSSR } from '@Lib/utils/ssr.utils';
+import type { Book } from '@prisma/client';
+import { prisma } from '@Lib/utils/prisma.utils';
 import MainLayout from '@Components/Layouts/MainLayout';
 import BooksList from '@Components/BooksList';
 import { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 
-const BooksPage: NextPage = () => {
+export type BookPageProps = {
+  books: Book[];
+};
+
+const BooksPage: NextPage<BookPageProps> = ({ books }) => {
   return (
     <MainLayout
       title="My Books"
       description="Create a list of your favorite books"
       url={MainPaths.BOOKS}
     >
-      <BooksList />
+      <BooksList books={books} />
     </MainLayout>
   );
 };
@@ -26,26 +31,28 @@ export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
   const props: GSSProps = {};
-  const isSSR = isRequestSSR(ctx.req.url);
+  const session = await getSession(ctx);
 
-  if (isSSR) {
-    const session = await getSession(ctx);
-
-    if (!session) {
-      return {
-        redirect: {
-          destination: MainPaths.INDEX,
-          permanent: false,
-        },
-      };
-    }
-
-    props.session = session;
+  if (!session) {
+    return {
+      redirect: {
+        destination: MainPaths.INDEX,
+        permanent: false,
+      },
+    };
   }
 
-  return {
-    props: props,
+  const data = await prisma.user
+    .findUnique({ where: { email: session.user?.email as string } })
+    .books();
+
+  const books = JSON.parse(JSON.stringify(data));
+
+  props.componentProps = {
+    books,
   };
+
+  return { props };
 };
 
 export default BooksPage;

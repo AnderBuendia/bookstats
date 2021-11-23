@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-
+import { formatStatusText } from '@Lib/utils/format-text.utils';
 export type Option = {
   label: string;
   value: string;
@@ -25,7 +25,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       >
         {options.map(({ label, value }) => (
           <option key={label} value={value}>
-            {label}
+            {formatStatusText(label)}
           </option>
         ))}
       </select>

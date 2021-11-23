@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
-import { createHtmlTag } from '@Lib/utils/create-html-tag.utils';
+import { createHtmlTag } from '@Lib/utils/format-text.utils';
 
 export type InputProps = {
   label: string;
