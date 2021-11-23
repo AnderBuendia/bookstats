@@ -7,9 +7,9 @@ import { getColorStatus } from '@Domain/book';
 import Input from '@Components/Forms/Input';
 import Select from '@Components/Forms/Select';
 import { FormMessages } from '@Enums/config/messages.enum';
-import { BookStatus } from '@Enums/book-status.enum';
-import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
+import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
+import { BookStatus } from '@prisma/client';
 
 const CreateBookForm: FC = () => {
   const { data: session } = useSession();

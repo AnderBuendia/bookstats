@@ -1,17 +1,20 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import StarRating from '@Components/generic/StarRating';
+import { useSession } from 'next-auth/react';
+import type { Book } from '@prisma/client';
+import { formatStatusText } from '@Lib/utils/format-text.utils';
 import { getColorStatus } from '@Domain/book';
+import StarRating from '@Components/generic/StarRating';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { IBook } from '@Interfaces/domain/book.interface';
 
 export type CardProps = {
-  books: IBook[];
+  books: Book[];
 };
 
 const Card: FC<CardProps> = ({ books }) => {
   const { pathname } = useRouter();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -19,7 +22,9 @@ const Card: FC<CardProps> = ({ books }) => {
         <Link
           key={book.id}
           href={
-            pathname !== MainPaths.INDEX ? `${MainPaths.BOOKS}/${book.id}` : '#'
+            pathname !== MainPaths.INDEX && session
+              ? `${MainPaths.BOOK}/${book.id}`
+              : '#'
           }
           passHref
         >
@@ -38,7 +43,7 @@ const Card: FC<CardProps> = ({ books }) => {
                   book.status
                 )} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
               >
-                {book.status}
+                {formatStatusText(book.status)}
               </p>
               <StarRating bookId={book.id} bookRating={book.rating} />
             </div>

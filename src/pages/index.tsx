@@ -8,7 +8,6 @@ import MainLayout from '@Components/Layouts/MainLayout';
 import Home from '@Components/Home';
 import { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { isRequestSSR } from '@Lib/utils/ssr.utils';
 
 const HomePage: NextPage = () => {
   return (
@@ -26,16 +25,11 @@ export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
   const props: GSSProps = {};
-  const isSSR = isRequestSSR(ctx.req.url);
+  const session = await getSession(ctx);
 
-  if (isSSR) {
-    const session = await getSession(ctx);
-    if (session) props.session = session;
-  }
+  if (session) props.session = session;
 
-  return {
-    props: props,
-  };
+  return { props };
 };
 
 export default HomePage;

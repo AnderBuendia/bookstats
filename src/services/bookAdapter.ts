@@ -1,5 +1,6 @@
 import { RestEndPoints } from '@Enums/paths/rest-endpoints.enum';
 import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
+import { prisma } from '@Lib/utils/prisma.utils';
 
 export interface BookService {
   createBookRequest: () => void;

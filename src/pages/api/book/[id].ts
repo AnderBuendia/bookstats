@@ -3,29 +3,25 @@ import { prisma } from '@Lib/utils/prisma.utils';
 import { HTTPStatusCodes } from '@Enums/config/http-status-codes.enum';
 import { AlertMessages } from '@Enums/config/messages.enum';
 
-/**
- * POST /api/book
- */
 const handle = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     res.status(HTTPStatusCodes.METHOD_NOT_ALLOWED).send(false);
     return;
   }
 
-  const { title, author, status, pages } = req.body.data;
+  const bookId = req.query.id as string;
 
   try {
-    const result = await prisma.book.create({
-      data: {
-        name: title,
-        author,
-        status,
-        pages: parseInt(pages),
-        user: { connect: { email: req.body.email } },
-      },
-    });
+    if (bookId) {
+      const book = await prisma.book.findUnique({
+        where: { id: bookId },
+        include: { user: true },
+      });
 
-    res.status(HTTPStatusCodes.OK).json(result);
+      res.json(book);
+    } else {
+      res.status(HTTPStatusCodes.NOT_FOUND).send(false);
+    }
   } catch (error: any) {
     if (error instanceof Error) {
       res

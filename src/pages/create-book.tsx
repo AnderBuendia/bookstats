@@ -4,7 +4,6 @@ import type {
   GetServerSidePropsContext,
 } from 'next';
 import { getSession } from 'next-auth/react';
-import { isRequestSSR } from '@Lib/utils/ssr.utils';
 import MainLayout from '@Components/Layouts/MainLayout';
 import CreateBookForm from '@Components/Forms/CreateBookForm';
 import { GSSProps } from '@Interfaces/props/gss-props.interface';
@@ -26,26 +25,21 @@ export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
   const props: GSSProps = {};
-  const isSSR = isRequestSSR(ctx.req.url);
 
-  if (isSSR) {
-    const session = await getSession(ctx);
+  const session = await getSession(ctx);
 
-    if (!session) {
-      return {
-        redirect: {
-          destination: MainPaths.INDEX,
-          permanent: false,
-        },
-      };
-    }
-
-    props.session = session;
+  if (!session) {
+    return {
+      redirect: {
+        destination: MainPaths.INDEX,
+        permanent: false,
+      },
+    };
   }
 
-  return {
-    props: props,
-  };
+  props.session = session;
+
+  return { props };
 };
 
 export default CreateBookPage;

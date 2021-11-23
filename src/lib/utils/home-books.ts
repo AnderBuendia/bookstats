@@ -1,5 +1,6 @@
-import { BookStatus } from '@Enums/book-status.enum';
-export const HomeBooks = [
+import { Book, BookStatus } from '@prisma/client';
+
+export const HomeBooks: Book[] = [
   {
     id: '1',
     name: 'The Brothers Karamazov',
@@ -7,6 +8,10 @@ export const HomeBooks = [
     status: BookStatus.COMPLETED,
     rating: 4,
     pages: 0,
+    userId: 'user1',
+    image: null,
+    review: null,
+    read_pages: [],
   },
   {
     id: '2',
@@ -15,6 +20,10 @@ export const HomeBooks = [
     status: BookStatus.READING,
     rating: 0,
     pages: 20,
+    userId: 'user2',
+    image: null,
+    review: null,
+    read_pages: [],
   },
   {
     id: '3',
@@ -23,6 +32,10 @@ export const HomeBooks = [
     status: BookStatus.READY,
     rating: 0,
     pages: 417,
+    userId: 'user3',
+    image: null,
+    review: null,
+    read_pages: [],
   },
   {
     id: '4',
@@ -31,5 +44,9 @@ export const HomeBooks = [
     status: BookStatus.TO_READ,
     rating: 0,
     pages: 111,
+    userId: 'user4',
+    image: null,
+    review: null,
+    read_pages: [],
   },
 ];
