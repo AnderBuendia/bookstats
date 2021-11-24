@@ -32,5 +32,13 @@ export function useBook(): BookService {
     });
   };
 
-  return { createBookRequest, editBookRequest };
+  const deleteBookRequest = async (bookId: string) => {
+    const urlRequest = `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOK}/${bookId}`;
+
+    return await fetch(urlRequest, {
+      method: 'DELETE',
+    });
+  };
+
+  return { createBookRequest, editBookRequest, deleteBookRequest };
 }

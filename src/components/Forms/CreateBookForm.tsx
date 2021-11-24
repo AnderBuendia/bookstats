@@ -33,7 +33,7 @@ const CreateBookForm: FC = () => {
     const response = await createBook(data, session?.user?.email);
 
     if (response) {
-      router.push(MainPaths.BOOKS);
+      return router.push(MainPaths.BOOKS);
     }
   });
 

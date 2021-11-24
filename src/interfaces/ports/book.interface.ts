@@ -11,4 +11,6 @@ export interface BookService {
     data: FormValuesEditBookForm,
     bookId: string
   ) => Promise<Response>;
+
+  deleteBookRequest: (bookId: string) => Promise<Response>;
 }

@@ -1,3 +1,3 @@
 ☐ Set up App Context Hook to handling books state
-☐ Check Next Link href in Card and Table components to
-add session.user conditional
+✔ Check Next Link href in Card and Table components add session.user conditional to @done (24/11/2021, 21:51:49)
+☐ Infinite scroll books

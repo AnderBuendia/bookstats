@@ -43,7 +43,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book, totalReadPages }) => {
     const response = await editBook(data, id, session?.user?.email);
 
     if (response) {
-      router.push(MainPaths.BOOKS);
+      return router.push(MainPaths.BOOKS);
     }
   });
 

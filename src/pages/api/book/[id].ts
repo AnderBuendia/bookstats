@@ -16,6 +16,8 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
       await handleGET(bookId, res);
     } else if (req.method === 'POST') {
       await handlePOST(bookId, req.body.data, res);
+    } else if (req.method === 'DELETE') {
+      await handleDELETE(bookId, res);
     } else {
       res.status(HTTPStatusCodes.METHOD_NOT_ALLOWED).send(false);
       return;
@@ -56,6 +58,15 @@ const handlePOST = async (
   });
 
   res.status(HTTPStatusCodes.OK).json(result);
+};
+
+/*  DELETE /api/book/:id */
+const handleDELETE = async (bookId: string, res: NextApiResponse) => {
+  const book = await prisma.book.delete({
+    where: { id: bookId },
+  });
+
+  res.status(HTTPStatusCodes.OK).json(book);
 };
 
 export default handle;
