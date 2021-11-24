@@ -26,7 +26,7 @@ const BookPage: NextPage<BookPageProps> = ({ book }) => {
 
   return (
     <MainLayout
-      title={book.name}
+      title={book.title}
       description="See more data of your favorite books"
       url={`${MainPaths.BOOK}/${book.id}`}
     >

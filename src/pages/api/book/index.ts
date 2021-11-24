@@ -17,7 +17,7 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const result = await prisma.book.create({
       data: {
-        name: title,
+        title,
         author,
         status,
         pages: parseInt(pages),

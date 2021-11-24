@@ -33,7 +33,7 @@ const Card: FC<CardProps> = ({ books }) => {
       transition duration-500 ease-in-out transform hover:scale-105 hover:shadow-md hover:opacity-75"
           >
             <div className="flex flex-row justify-between items-center">
-              <p className="text-md text-left">{book.name}</p>
+              <p className="text-md text-left">{book.title}</p>
               <p className="text-sm text-left">{book.author}</p>
             </div>
 

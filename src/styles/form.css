@@ -1,13 +1,11 @@
 .btn-form {
-  @apply flex;
-  @apply flex-row;
-  @apply items-center;
-  @apply justify-center;
-  @apply text-white;
-  @apply w-full;
-  @apply mt-6;
-  @apply bg-pink-600;
-  @apply hover:bg-pink-800;
-  @apply p-2;
-  @apply rounded;
+  @apply flex flex-row items-center justify-center
+  text-white w-full mt-6 bg-pink-600 p-2 rounded
+  hover:bg-pink-800;
+}
+
+.btn-menu {
+  @apply w-6/12 p-3 font-bold bg-green-500 text-white 
+  rounded-md hover:opacity-70 transition-opacity 
+  duration-500 ease-out text-center;
 }

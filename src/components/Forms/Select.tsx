@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { formatStatusText } from '@Lib/utils/format-text.utils';
+
 export type Option = {
   label: string;
   value: string;
