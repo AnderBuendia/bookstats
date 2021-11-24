@@ -1,17 +1,28 @@
-import { FC, useState } from 'react';
+import { FC, useState, useRef, MutableRefObject } from 'react';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import type { Book } from '@prisma/client';
 import { BookStatus } from '@prisma/client';
+import { useDeleteBook } from '@Application/book/deleteBook';
 import { readPagesAvgMins, sumReadPages } from '@Domain/book';
 import { formatDate } from '@Lib/utils/format-date.utils';
 import StarRating from '@Components/generic/StarRating';
 import EditBookForm from '@Components/Forms/EditBookForm';
+import ModalDeleteBook from '@Components/BookSection/ModalDeleteBook';
+import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 export type BookSectionProps = {
   book: Book;
 };
 
 const BookSection: FC<BookSectionProps> = ({ book }) => {
-  const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [openEditForm, setOpenEditForm] = useState<boolean>(false);
+  const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
+  const modalDeleteRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const { data: session } = useSession();
+  const router = useRouter();
+  const { deleteBook } = useDeleteBook();
+
   const {
     id,
     title,
@@ -27,9 +38,25 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
 
   const totalReadPages = sumReadPages(read_pages);
 
+  const handleDeleteBook = async () => {
+    const response = await deleteBook(id, session?.user?.email);
+
+    if (response) {
+      return router.push(MainPaths.BOOKS);
+    }
+  };
+
   return (
     <div className="flex flex-col w-11/12 justify-center items-center">
-      <div className="container mx-auto p-5 bg-white rounded-md shadow-md">
+      {showModalDelete && (
+        <ModalDeleteBook
+          onDeleteBook={handleDeleteBook}
+          componentRef={modalDeleteRef}
+          handleShowModalDelete={setShowModalDelete}
+        />
+      )}
+
+      <div className="container mx-auto p-5 bg-white rounded-md shadow-md mb-4">
         <div className="flex flex-row justify-between items-center">
           <h1 className="font-bold text-lg ">{title}</h1>
           <h3 className="font-light text-gray-500">{author}</h3>
@@ -73,22 +100,26 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
           </div>
         )}
       </div>
-      <div className="w-full flex flex-col justify-center items-center mt-4">
-        {openEdit ? (
-          <EditBookForm book={book} totalReadPages={totalReadPages} />
-        ) : (
-          <button className="btn-menu" onClick={() => setOpenEdit(true)}>
-            Edit Book
+
+      {openEditForm ? (
+        <EditBookForm book={book} totalReadPages={totalReadPages} />
+      ) : (
+        <div className="w-full flex flex-row">
+          <button
+            className="btn-menu mr-6"
+            onClick={() => setOpenEditForm(true)}
+          >
+            <span>Edit Book</span>
           </button>
-        )}
-        {/* <button
-          className="object-center w-6/12 p-2 font-bold bg-red-500 text-white rounded-md hover:opacity-70 
-          transition-opacity duration-500 ease-out"
-          onClick={submitDeleteBook}
-        >
-          Delete Book
-        </button> */}
-      </div>
+
+          <button
+            className="btn-menu bg-red-500"
+            onClick={() => setShowModalDelete(true)}
+          >
+            <span>Delete Book</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
