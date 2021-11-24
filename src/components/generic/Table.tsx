@@ -43,7 +43,7 @@ const Table: FC<TableProps> = ({ books }) => {
                 <tr className="bg-gray-50 text-center cursor-pointer transition duration-500 ease-in transform hover:scale-95 hover:bg-gray-50">
                   <td className="p-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {book.name}
+                      {book.title}
                     </div>
                   </td>
                   <td className="p-4 whitespace-nowrap">

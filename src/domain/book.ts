@@ -14,15 +14,24 @@ export const getColorStatus = (status: string): string => {
   return actionColorStatus();
 };
 
+export const sumReadPages = (read_pages: number[]): number => {
+  if (read_pages.length === 0) {
+    return 0;
+  } else {
+    return read_pages.reduce((acc, el) => acc + el);
+  }
+};
+
 export const readPagesAvgMins = (
   pages: number,
   status: string,
-  read_pages?: number[]
-) => {
-  if (status === BookStatus.COMPLETED) return '0';
+  totalReadPages: number
+): number => {
+  if (totalReadPages === 0) {
+    return Math.round(pages * 1.15);
+  } else if (status === BookStatus.COMPLETED) {
+    return 0;
+  }
 
-  if (!read_pages) return Math.round(pages * 1.15);
-
-  const sumReadPages = read_pages.reduce((acc, el) => acc + el, 0);
-  return Math.round((pages - sumReadPages) * 1.15);
+  return Math.round((pages - totalReadPages) * 1.15);
 };

@@ -1,12 +1,9 @@
+import { BookService } from '@Interfaces/ports/book.interface';
 import { RestEndPoints } from '@Enums/paths/rest-endpoints.enum';
 import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
-import { prisma } from '@Lib/utils/prisma.utils';
+import { FormValuesEditBookForm } from '@Types/forms/edit-book-form.type';
 
-export interface BookService {
-  createBookRequest: () => void;
-}
-
-export function useBook() {
+export function useBook(): BookService {
   const createBookRequest = async (
     data: FormValuesCreateBookForm,
     email: string
@@ -20,5 +17,20 @@ export function useBook() {
     });
   };
 
-  return { createBookRequest };
+  const editBookRequest = async (
+    data: FormValuesEditBookForm,
+    bookId: string
+  ) => {
+    const urlRequest = `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOK}/${bookId}`;
+
+    return await fetch(urlRequest, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data }),
+    });
+  };
+
+  return { createBookRequest, editBookRequest };
 }

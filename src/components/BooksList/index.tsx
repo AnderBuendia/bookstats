@@ -17,12 +17,7 @@ const BooksList: FC<BooksListProps> = ({ books }) => {
   return (
     <div className="w-11/12 lg:w-9/12 flex flex-col items-center">
       <Link href={MainPaths.CREATE_BOOK}>
-        <a
-          className="w-6/12 p-3 mb-4 font-bold bg-green-500 text-white rounded-md hover:opacity-70 
-          transition-opacity duration-500 ease-out text-center"
-        >
-          Add New Book
-        </a>
+        <a className="btn-menu mb-4">Add New Book</a>
       </Link>
 
       {width > ResolutionBreakPoints.SM ? (

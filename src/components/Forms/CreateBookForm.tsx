@@ -27,7 +27,7 @@ const CreateBookForm: FC = () => {
       status: BookStatus.TO_READ,
     },
   });
-  const watchSelect = watch('status');
+  const watchStatus = watch('status');
 
   const onSubmit = handleSubmit(async (data) => {
     const response = await createBook(data, session?.user?.email);
@@ -39,7 +39,7 @@ const CreateBookForm: FC = () => {
 
   return (
     <form
-      className="w-11/12 lg:w-6/12 bg-white rounded-md p-6 mt-6"
+      className="container mx-auto w-11/12 bg-white shadow-md rounded-md p-6"
       onSubmit={onSubmit}
     >
       <h2 className="font-bold text-xl text-center">Add New Book</h2>
@@ -80,8 +80,8 @@ const CreateBookForm: FC = () => {
 
         <Select
           style={`${getColorStatus(
-            watchSelect
-          )} py-2 px-4 rounded-xl mt-5 bg-red appearance-none text-center`}
+            watchStatus
+          )} py-2 px-4 rounded-xl mt-5 bg-red font-bold appearance-none text-center hover:opacity-70 cursor-pointer`}
           {...register('status')}
           options={[
             { label: BookStatus.TO_READ, value: BookStatus.TO_READ },

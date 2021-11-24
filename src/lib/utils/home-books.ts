@@ -1,9 +1,10 @@
 import { Book, BookStatus } from '@prisma/client';
 
+const date = new Date('2021');
 export const HomeBooks: Book[] = [
   {
     id: '1',
-    name: 'The Brothers Karamazov',
+    title: 'The Brothers Karamazov',
     author: 'Dostoievsky',
     status: BookStatus.COMPLETED,
     rating: 4,
@@ -12,10 +13,12 @@ export const HomeBooks: Book[] = [
     image: null,
     review: null,
     read_pages: [],
+    createdAt: date,
+    updatedAt: date,
   },
   {
     id: '2',
-    name: 'Steppenwolf',
+    title: 'Steppenwolf',
     author: 'Hesse',
     status: BookStatus.READING,
     rating: 0,
@@ -24,10 +27,12 @@ export const HomeBooks: Book[] = [
     image: null,
     review: null,
     read_pages: [],
+    createdAt: date,
+    updatedAt: date,
   },
   {
     id: '3',
-    name: 'One hundred years of solitude',
+    title: 'One hundred years of solitude',
     author: 'Márquez',
     status: BookStatus.READY,
     rating: 0,
@@ -36,10 +41,12 @@ export const HomeBooks: Book[] = [
     image: null,
     review: null,
     read_pages: [],
+    createdAt: date,
+    updatedAt: date,
   },
   {
     id: '4',
-    name: 'The Symposium',
+    title: 'The Symposium',
     author: 'Plato',
     status: BookStatus.TO_READ,
     rating: 0,
@@ -48,5 +55,7 @@ export const HomeBooks: Book[] = [
     image: null,
     review: null,
     read_pages: [],
+    createdAt: date,
+    updatedAt: date,
   },
 ];
