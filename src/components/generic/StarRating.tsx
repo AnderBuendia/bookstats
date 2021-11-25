@@ -1,7 +1,8 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useRouter } from 'next/router';
 import { Rating, RatingView } from 'react-simple-star-rating';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
+import { useUpdateRating } from '@Application/book/updateRating';
 
 interface StarRatingProps {
   bookId: string;
@@ -9,19 +10,23 @@ interface StarRatingProps {
 }
 
 const StarRating: FC<StarRatingProps> = ({ bookId, bookRating }) => {
-  const [rating, setRating] = useState(bookRating);
-  const { pathname } = useRouter();
+  const router = useRouter();
+  const { updateRating } = useUpdateRating();
 
-  const handleRating = (rate: number) => {
-    setRating(rate);
+  const handleRating = async (rate: number) => {
+    const response = await updateRating(rate, bookId);
+
+    if (response) {
+      return router.push(MainPaths.BOOKS);
+    }
   };
 
   return (
     <div className="flex justify-center">
-      {pathname === MainPaths.INDEX ? (
-        <RatingView ratingValue={rating} />
+      {router.pathname === MainPaths.INDEX ? (
+        <RatingView ratingValue={bookRating} />
       ) : (
-        <Rating onClick={handleRating} ratingValue={rating} />
+        <Rating onClick={handleRating} ratingValue={bookRating} />
       )}
     </div>
   );

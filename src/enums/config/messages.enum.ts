@@ -8,5 +8,7 @@ export enum AlertMessages {
   USER_NOT_AUTHENTICATED = 'User is not authenticated. Please login or register an account.',
   BOOK_CREATED = 'Book was created successfully',
   BOOK_EDITED = 'Book was edited successfully',
+  BOOK_DELETED = 'Book was deleted successfully',
+  BOOK_VOTED = 'You have voted this book',
   SERVER_ERROR = 'An error has occurred on the server',
 }

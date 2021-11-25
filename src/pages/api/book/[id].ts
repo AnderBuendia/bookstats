@@ -16,6 +16,8 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
       await handleGET(bookId, res);
     } else if (req.method === 'POST') {
       await handlePOST(bookId, req.body.data, res);
+    } else if (req.method === 'PUT') {
+      await handlePUT(bookId, req.body.rate, res);
     } else if (req.method === 'DELETE') {
       await handleDELETE(bookId, res);
     } else {
@@ -52,8 +54,24 @@ const handlePOST = async (
     data: {
       ...data,
       read_pages: {
-        push: Number(data.read_pages),
+        push: data.read_pages && Number(data.read_pages),
       },
+    },
+  });
+
+  res.status(HTTPStatusCodes.OK).json(result);
+};
+
+/* PUT /api/book/:id */
+const handlePUT = async (
+  bookId: string,
+  rate: number,
+  res: NextApiResponse
+) => {
+  const result = await prisma.book.update({
+    where: { id: bookId },
+    data: {
+      rating: rate,
     },
   });
 

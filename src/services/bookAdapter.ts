@@ -40,5 +40,22 @@ export function useBook(): BookService {
     });
   };
 
-  return { createBookRequest, editBookRequest, deleteBookRequest };
+  const updateRatingRequest = async (rate: number, bookId: string) => {
+    const urlRequest = `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOK}/${bookId}`;
+
+    return await fetch(urlRequest, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rate }),
+    });
+  };
+
+  return {
+    createBookRequest,
+    editBookRequest,
+    deleteBookRequest,
+    updateRatingRequest,
+  };
 }
