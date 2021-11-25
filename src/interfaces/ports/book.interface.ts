@@ -13,4 +13,5 @@ export interface BookService {
   ) => Promise<Response>;
 
   deleteBookRequest: (bookId: string) => Promise<Response>;
+  updateRatingRequest: (rate: number, bookId: string) => Promise<Response>;
 }

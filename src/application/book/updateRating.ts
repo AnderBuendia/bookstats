@@ -1,21 +1,25 @@
+import { useSession } from 'next-auth/react';
 import { useNotifier } from '@Services/notificationAdapter';
 import { useBook } from '@Services/bookAdapter';
 import { AlertMessages } from '@Enums/config/messages.enum';
 
-export function useDeleteBook() {
-  const { deleteBookRequest } = useBook();
+export function useUpdateRating() {
+  const { data: session } = useSession();
+  const { updateRatingRequest } = useBook();
   const { notifySuccess, notifyError } = useNotifier();
 
-  const deleteBook = async (bookId: string, email?: string | null) => {
+  const updateRating = async (rate: number, bookId: string) => {
     try {
-      if (!email) throw new Error(AlertMessages.USER_NOT_AUTHENTICATED);
+      if (!session?.user?.email) {
+        throw new Error(AlertMessages.USER_NOT_AUTHENTICATED);
+      }
 
-      const response = await deleteBookRequest(bookId);
+      const response = await updateRatingRequest(rate, bookId);
       const responseToJson = await response.json();
 
       if (responseToJson.error) throw new Error(responseToJson.error);
 
-      notifySuccess({ message: AlertMessages.BOOK_DELETED });
+      notifySuccess({ message: AlertMessages.BOOK_VOTED });
 
       return response;
     } catch (error) {
@@ -25,5 +29,5 @@ export function useDeleteBook() {
     }
   };
 
-  return { deleteBook };
+  return { updateRating };
 }
