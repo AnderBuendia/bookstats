@@ -61,14 +61,17 @@ export function useBook(): BookService {
   };
 }
 
-export const getUserBooksRequest = async (userId: string): Promise<any> => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOKS}?uid=${userId}`
-    );
+export const getUserBooksRequest = async (userId: string): Promise<Book[]> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOKS}?uid=${userId}`
+  );
 
-    return response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  return await response.json();
+};
+
+export const getBookRequest = async (bookId: string): Promise<Book> => {
+  const fetchBookUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOK}/${bookId}`;
+  const response = await fetch(fetchBookUrl);
+
+  return await response.json();
 };
