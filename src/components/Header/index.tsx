@@ -1,12 +1,14 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { signOut } from 'next-auth/react';
+import { useAuthenticate } from '@Application/authenticate';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { BooksIcon } from '@Components/Icons/books.icon';
 
 const url = process.env.NEXT_PUBLIC_SITE_URL;
 
 const Header: FC = () => {
+  const { signOut } = useAuthenticate();
+
   return (
     <nav className="flex flex-row justify-between items-center border-b border-gray-300 shadow-sm px-3 py-1">
       <Link href={MainPaths.BOOKS}>

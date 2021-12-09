@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import type { Session } from 'next-auth';
 import type { Book } from '@prisma/client';
 import { formatStatusText } from '@Lib/utils/format-text.utils';
 import { getColorStatus } from '@Domain/book';
@@ -10,11 +10,11 @@ import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 export type CardProps = {
   books: Book[];
+  session: Session | null;
 };
 
-const Card: FC<CardProps> = ({ books }) => {
+const Card: FC<CardProps> = ({ books, session }) => {
   const { pathname } = useRouter();
-  const { data: session } = useSession();
 
   return (
     <>
@@ -30,14 +30,14 @@ const Card: FC<CardProps> = ({ books }) => {
         >
           <div
             className="w-full mb-3 p-4 bg-white border shadow-lg rounded-lg cursor-pointer
-      transition duration-500 ease-in-out transform hover:scale-105 hover:shadow-md hover:opacity-75"
+              transition duration-500 ease-in-out transform hover:scale-105 hover:shadow-md hover:opacity-75"
           >
             <div className="flex flex-row justify-between items-center">
               <p className="text-md text-left">{book.title}</p>
               <p className="text-sm text-left">{book.author}</p>
             </div>
 
-            <div className="mt-4 flex flex-row justify-between items-center">
+            <div className="w-full mt-4 flex flex-row justify-between items-center">
               <p
                 className={`${getColorStatus(
                   book.status

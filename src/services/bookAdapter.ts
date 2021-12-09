@@ -1,3 +1,4 @@
+import type { Book } from '@prisma/client';
 import { BookService } from '@Interfaces/ports/book.interface';
 import { RestEndPoints } from '@Enums/paths/rest-endpoints.enum';
 import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
@@ -59,3 +60,15 @@ export function useBook(): BookService {
     updateRatingRequest,
   };
 }
+
+export const getUserBooksRequest = async (userId: string): Promise<any> => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOKS}?uid=${userId}`
+    );
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

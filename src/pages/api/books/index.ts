@@ -3,29 +3,28 @@ import prisma from '@Lib/utils/prisma.utils';
 import { HTTPStatusCodes } from '@Enums/config/http-status-codes.enum';
 import { AlertMessages } from '@Enums/config/messages.enum';
 
-/**
- * POST /api/book
- */
+/* GET /api/books */
 const handle = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     res.status(HTTPStatusCodes.METHOD_NOT_ALLOWED).send(false);
     return;
   }
 
-  const { title, author, status, pages } = req.body.data;
+  const userId = req.query.uid as string;
 
   try {
-    const result = await prisma.book.create({
-      data: {
-        title,
-        author,
-        status,
-        pages: parseInt(pages),
-        user: { connect: { email: req.body.email } },
-      },
-    });
+    const books = await prisma.user
+      .findUnique({
+        where: { id: userId },
+      })
+      .books({
+        take: 3,
+        orderBy: {
+          status: 'asc',
+        },
+      });
 
-    res.status(HTTPStatusCodes.OK).json(result);
+    res.status(HTTPStatusCodes.OK).json(books);
   } catch (error: any) {
     if (error instanceof Error) {
       res
@@ -33,6 +32,16 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
         .send({ error: AlertMessages.SERVER_ERROR });
     }
   }
+
+  // const books = await prisma.user
+  //   .findUnique({ where: { id: req.query.uid as string } })
+  //   .books({
+  //     take: 3,
+  //     skip: 1,
+  //     orderBy: {
+  //       status: 'asc',
+  //     },
+  //   });
 };
 
 export default handle;

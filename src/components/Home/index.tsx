@@ -1,16 +1,15 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import { useResolution } from '@Lib/hooks/useResolution';
-import { useSession } from 'next-auth/react';
-import { signIn } from 'next-auth/react';
 import { HomeBooks } from '@Lib/utils/home-books';
 import Table from '@Components/generic/Table';
 import Card from '@Components/generic/Card';
 import { ResolutionBreakPoints } from '@Enums/config/resolution-breakpoints.enum';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
+import { useAuthenticate } from '@Application/authenticate';
 
 const Home: FC = () => {
-  const { data: session } = useSession();
+  const { session, signIn } = useAuthenticate();
   const width = useResolution();
   const router = useRouter();
 
@@ -44,9 +43,9 @@ const Home: FC = () => {
         </div>
         <div className="bg-white p-6 px-4">
           {width > ResolutionBreakPoints.SM ? (
-            <Table books={HomeBooks} />
+            <Table books={HomeBooks} session={session} />
           ) : (
-            <Card books={HomeBooks} />
+            <Card books={HomeBooks} session={session} />
           )}
         </div>
       </div>

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '@Lib/utils/prisma.utils';
+import prisma from '@Lib/utils/prisma.utils';
 import { HTTPStatusCodes } from '@Enums/config/http-status-codes.enum';
 import { AlertMessages } from '@Enums/config/messages.enum';
 import { FormValuesEditBookForm } from '@Types/forms/edit-book-form.type';

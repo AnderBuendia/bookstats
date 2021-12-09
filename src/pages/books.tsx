@@ -3,26 +3,22 @@ import type {
   GetServerSideProps,
   GetServerSidePropsContext,
 } from 'next';
+import { dehydrate, QueryClient } from 'react-query';
 import { getSession } from 'next-auth/react';
-import type { Book } from '@prisma/client';
-import { prisma } from '@Lib/utils/prisma.utils';
 import MainLayout from '@Components/Layouts/MainLayout';
 import BooksList from '@Components/BooksList';
 import { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
+import { getUserBooksRequest } from '@Services/bookAdapter';
 
-export type BookPageProps = {
-  books: Book[];
-};
-
-const BooksPage: NextPage<BookPageProps> = ({ books }) => {
+const BooksPage: NextPage = () => {
   return (
     <MainLayout
       title="My Books"
       description="Create a list of your favorite books"
       url={MainPaths.BOOKS}
     >
-      <BooksList books={books} />
+      <BooksList />
     </MainLayout>
   );
 };
@@ -30,27 +26,29 @@ const BooksPage: NextPage<BookPageProps> = ({ books }) => {
 export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
+  const queryClient = new QueryClient();
   const props: GSSProps = {};
   const session = await getSession(ctx);
 
   if (!session) {
+    props.dehydratedState = dehydrate(queryClient);
+
     return {
       redirect: {
         destination: MainPaths.INDEX,
         permanent: false,
       },
+      props,
     };
   }
 
-  const data = await prisma.user
-    .findUnique({ where: { email: session.user?.email as string } })
-    .books();
+  const userId = session.uid as string;
 
-  const books = JSON.parse(JSON.stringify(data));
+  await queryClient.prefetchQuery(['books', { userId }], () =>
+    getUserBooksRequest(userId)
+  );
 
-  props.componentProps = {
-    books,
-  };
+  props.dehydratedState = dehydrate(queryClient);
 
   return { props };
 };

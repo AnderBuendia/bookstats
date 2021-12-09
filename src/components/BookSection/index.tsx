@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import type { Book } from '@prisma/client';
 import { BookStatus } from '@prisma/client';
 import { useDeleteBook } from '@Application/book/deleteBook';
-import { readPagesAvgMins, sumReadPages } from '@Domain/book';
+import { readPagesAvgMins } from '@Domain/book';
 import { formatDate } from '@Lib/utils/format-date.utils';
 import StarRating from '@Components/generic/StarRating';
 import EditBookForm from '@Components/Forms/EditBookForm';
@@ -35,8 +35,6 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
     createdAt,
     updatedAt,
   } = book;
-
-  const totalReadPages = sumReadPages(read_pages);
 
   const handleDeleteBook = async () => {
     const response = await deleteBook(id, session?.user?.email);
@@ -71,7 +69,7 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
           <div className="w-1/3 flex flex-col">
             <p>Time left</p>
             <p className="text-gray-500 font-light">
-              {readPagesAvgMins(pages, status, totalReadPages)} mins
+              {readPagesAvgMins(pages, status, read_pages)} mins
             </p>
           </div>
           <div className="w-1/3 flex flex-col border-r border-l">
@@ -102,7 +100,7 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
       </div>
 
       {openEditForm ? (
-        <EditBookForm book={book} totalReadPages={totalReadPages} />
+        <EditBookForm book={book} />
       ) : (
         <div className="w-full flex flex-row">
           <button
