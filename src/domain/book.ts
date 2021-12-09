@@ -25,8 +25,10 @@ export const sumReadPages = (read_pages: number[]): number => {
 export const readPagesAvgMins = (
   pages: number,
   status: string,
-  totalReadPages: number
+  read_pages: number[]
 ): number => {
+  const totalReadPages = sumReadPages(read_pages);
+
   if (totalReadPages === 0) {
     return Math.round(pages * 1.15);
   } else if (status === BookStatus.COMPLETED) {

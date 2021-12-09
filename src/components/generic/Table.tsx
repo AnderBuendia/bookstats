@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import type { Session } from 'next-auth';
 import type { Book } from '@prisma/client';
 import { getColorStatus, readPagesAvgMins } from '@Domain/book';
 import { formatStatusText } from '@Lib/utils/format-text.utils';
@@ -9,12 +9,12 @@ import StarRating from '@Components/generic/StarRating';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 interface TableProps {
-  books: Book[];
+  books?: Book[];
+  session: Session | null;
 }
 
-const Table: FC<TableProps> = ({ books }) => {
+const Table: FC<TableProps> = ({ books, session }) => {
   const { pathname } = useRouter();
-  const { data: session } = useSession();
 
   return (
     <div className="shadow overflow-x-auto border-b border-gray-200 rounded-lg">

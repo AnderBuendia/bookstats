@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import type { Book } from '@prisma/client';
 import { BookStatus } from '@prisma/client';
-import { getColorStatus } from '@Domain/book';
+import { getColorStatus, sumReadPages } from '@Domain/book';
 import { useEditBook } from '@Application/book/editBook';
 import Input from '@Components/Forms/Input';
 import Select from '@Components/Forms/Select';
@@ -14,14 +14,14 @@ import { FormMessages } from '@Enums/config/messages.enum';
 
 export type EditBookFormProps = {
   book: Book;
-  totalReadPages: number;
 };
 
-const EditBookForm: FC<EditBookFormProps> = ({ book, totalReadPages }) => {
-  const { id, title, author, status, review, pages } = book;
+const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
+  const { id, title, author, status, review, pages, read_pages } = book;
   const { data: session } = useSession();
   const router = useRouter();
   const { editBook } = useEditBook();
+  const totalReadPages = sumReadPages(read_pages);
 
   const {
     register,

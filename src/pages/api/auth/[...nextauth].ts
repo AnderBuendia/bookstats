@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { prisma } from '@Lib/utils/prisma.utils';
+import prisma from '@Lib/utils/prisma.utils';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 export default NextAuth({
@@ -18,6 +18,18 @@ export default NextAuth({
         return new URL(MainPaths.BOOKS, baseUrl).toString();
 
       return url;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (user) {
+        token.uid = user.id;
+      }
+
+      return token;
+    },
+    async session({ session, user, token }) {
+      session.uid = user.id;
+
+      return session;
     },
   },
 });

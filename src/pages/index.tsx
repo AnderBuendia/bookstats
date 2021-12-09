@@ -27,7 +27,9 @@ export const getServerSideProps: GetServerSideProps = async (
   const props: GSSProps = {};
   const session = await getSession(ctx);
 
-  if (session) props.session = session;
+  if (session) {
+    props.session = session;
+  }
 
   return { props };
 };

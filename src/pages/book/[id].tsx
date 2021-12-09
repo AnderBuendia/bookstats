@@ -6,7 +6,7 @@ import type {
 } from 'next';
 import { useRouter } from 'next/router';
 import type { Book } from '@prisma/client';
-import { prisma } from '@Lib/utils/prisma.utils';
+import prisma from '@Lib/utils/prisma.utils';
 import withCSRRedirect from '@Lib/hoc/with-csr-redirect.hoc';
 import BookSection from '@Components/BookSection';
 import MainLayout from '@Components/Layouts/MainLayout';
