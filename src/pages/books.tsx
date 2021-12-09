@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const userId = session.uid as string;
 
-  await queryClient.prefetchQuery(['books', { userId }], () =>
+  await queryClient.prefetchQuery(['books', userId], () =>
     getUserBooksRequest(userId)
   );
 
