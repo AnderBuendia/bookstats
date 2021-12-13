@@ -48,6 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (
     getUserBooksRequest(userId)
   );
 
+  props.session = session;
   props.dehydratedState = dehydrate(queryClient);
 
   return { props };

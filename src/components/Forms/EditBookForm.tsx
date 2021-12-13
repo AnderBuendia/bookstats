@@ -95,7 +95,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
         <Select
           style={`${getColorStatus(
             watchStatus
-          )} py-2 px-4 rounded-xl mt-5 bg-red font-bold appearance-none text-center hover:opacity-70 cursor-pointer`}
+          )} py-2 px-4 rounded-xl ml-3 mt-4 bg-red font-bold appearance-none text-center hover:opacity-70 cursor-pointer`}
           {...register('status')}
           options={[
             { label: BookStatus.TO_READ, value: BookStatus.TO_READ },
@@ -123,7 +123,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
         />
       </div>
 
-      <button className="btn-form" type="submit">
+      <button className="btn-form">
         <span>Edit Book</span>
       </button>
     </form>

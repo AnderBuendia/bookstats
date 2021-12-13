@@ -11,20 +11,47 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const userId = req.query.uid as string;
+  const cursorParam =
+    typeof req.query.cursor === 'string' ? req.query.cursor : '';
+
+  let books = [];
+  let cursorBooks = '';
 
   try {
-    const books = await prisma.user
-      .findUnique({
-        where: { id: userId },
-      })
-      .books({
-        take: 3,
-        orderBy: {
-          status: 'asc',
-        },
-      });
+    if (cursorParam) {
+      books = await prisma.user
+        .findUnique({
+          where: { id: userId },
+        })
+        .books({
+          take: 3,
+          skip: 1,
+          cursor: {
+            id: cursorParam,
+          },
+          orderBy: {
+            status: 'asc',
+          },
+        });
+    } else {
+      books = await prisma.user
+        .findUnique({
+          where: { id: userId },
+        })
+        .books({
+          take: 3,
+          orderBy: {
+            status: 'asc',
+          },
+        });
+    }
 
-    res.status(HTTPStatusCodes.OK).json(books);
+    if (books.length >= 3) {
+      const lastPost = books[2];
+      cursorBooks = lastPost.id;
+    }
+
+    res.status(HTTPStatusCodes.OK).json({ books, cursorBooks });
   } catch (error: any) {
     if (error instanceof Error) {
       res
@@ -32,16 +59,6 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
         .send({ error: AlertMessages.SERVER_ERROR });
     }
   }
-
-  // const books = await prisma.user
-  //   .findUnique({ where: { id: req.query.uid as string } })
-  //   .books({
-  //     take: 3,
-  //     skip: 1,
-  //     orderBy: {
-  //       status: 'asc',
-  //     },
-  //   });
 };
 
 export default handle;
