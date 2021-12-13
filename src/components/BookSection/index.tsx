@@ -69,7 +69,7 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
           <div className="w-1/3 flex flex-col">
             <p>Time left</p>
             <p className="text-gray-500 font-light">
-              {readPagesAvgMins(pages, status, read_pages)} mins
+              {readPagesAvgMins(pages, status, read_pages)} <span>mins</span>
             </p>
           </div>
           <div className="w-1/3 flex flex-col border-r border-l">
@@ -111,7 +111,7 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
           </button>
 
           <button
-            className="btn-menu bg-red-500"
+            className="btn-menu bg-rose-500 shadow-rose-500/50"
             onClick={() => setShowModalDelete(true)}
           >
             <span>Delete Book</span>

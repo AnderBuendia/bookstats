@@ -17,7 +17,7 @@ const Table: FC<TableProps> = ({ books, session }) => {
   const { pathname } = useRouter();
 
   return (
-    <div className="shadow overflow-x-auto border-b border-gray-200 rounded-lg">
+    <div className="w-full shadow overflow-x-auto border-b border-gray-200 rounded-lg">
       <table className="w-full divide-y divide-gray-200">
         <thead className="bg-indigo-300">
           <tr>
@@ -68,7 +68,7 @@ const Table: FC<TableProps> = ({ books, session }) => {
                         book.status,
                         book.read_pages
                       )}
-                      mins
+                      <span> mins</span>
                     </div>
                   </td>
                 </tr>

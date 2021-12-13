@@ -1,10 +1,6 @@
 .index-title {
-  @apply z-10;
-  @apply opacity-0;
-  @apply relative;
-  @apply text-6xl;
-  @apply font-bold;
-  @apply text-black;
+  @apply z-10 opacity-0 relative text-6xl 
+    font-bold text-black;
   transform: translateY(-600px);
   animation: 0.9s slideIn ease-in-out forwards;
 }
@@ -15,28 +11,15 @@
 }
 
 .index-table {
-  @apply w-0;
-  @apply z-10;
-  @apply relative;
-  @apply mb-4;
-  @apply shadow-md;
-  @apply overflow-hidden;
-  @apply border-b;
-  @apply border-gray-200;
-  @apply rounded-md;
+  @apply w-0 z-10 relative mb-4 shadow-md overflow-hidden 
+    border-b border-gray-200 rounded-md;
   transform: translateX(-600px);
   animation: 1.7s slideInX ease-in-out forwards;
 }
 
 th {
-  @apply px-6;
-  @apply py-3;
-  @apply text-center;
-  @apply text-sm;
-  @apply font-bold;
-  @apply text-indigo-700;
-  @apply uppercase;
-  @apply tracking-wider;
+  @apply px-6 py-3 text-center text-sm font-bold 
+    text-indigo-700 uppercase tracking-wider;
 }
 
 @keyframes skewBg {

@@ -20,7 +20,7 @@ const Home: FC = () => {
   };
 
   return (
-    <div className="w-11/12 flex-col mt-28 text-center">
+    <div className="w-11/12 lg:w-8/12 flex-col mt-28 text-center">
       <div className="overlay"></div>
 
       <h1 className="index-title">Bookstats</h1>

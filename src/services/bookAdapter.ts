@@ -61,10 +61,9 @@ export function useBook(): BookService {
   };
 }
 
-export const getUserBooksRequest = async (userId: string): Promise<Book[]> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOKS}?uid=${userId}`
-  );
+export const getUserBooksRequest = async (userId: string, pageParam = '') => {
+  const fetchBooksUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOKS}?uid=${userId}&cursor=${pageParam}`;
+  const response = await fetch(fetchBooksUrl);
 
   return await response.json();
 };

@@ -12,7 +12,7 @@ const Header: FC = () => {
   return (
     <nav className="flex flex-row justify-between items-center border-b border-gray-300 shadow-sm px-3 py-1">
       <Link href={MainPaths.BOOKS}>
-        <a className="px-2 py-1 rounded-lg hover:bg-gray-700" id="icon-books">
+        <a className="px-2 py-1 rounded-lg hover:bg-gray-300" id="icon-books">
           <BooksIcon w={38} h={38} />
         </a>
       </Link>
