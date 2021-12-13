@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
+import { useAuthenticate } from '@Application/authenticate';
 import { useResolution } from '@Lib/hooks/useResolution';
 import { HomeBooks } from '@Lib/utils/home-books';
 import Table from '@Components/generic/Table';
 import Card from '@Components/generic/Card';
+import { GithubIcon } from '@Components/Icons/github.icon';
 import { ResolutionBreakPoints } from '@Enums/config/resolution-breakpoints.enum';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { useAuthenticate } from '@Application/authenticate';
 
 const Home: FC = () => {
   const { session, signIn } = useAuthenticate();
@@ -16,7 +17,7 @@ const Home: FC = () => {
   const handleClick = () => {
     if (session) return router.push(MainPaths.BOOKS);
 
-    signIn();
+    signIn('github');
   };
 
   return (
@@ -27,11 +28,18 @@ const Home: FC = () => {
 
       <div className="index-button my-8">
         <button
-          className="px-6 py-3 font-bold bg-black text-white rounded-lg hover:opacity-60 
+          className="py-1 font-bold bg-black text-white rounded-lg hover:opacity-60 
           transition-opacity duration-500 ease-out"
           onClick={handleClick}
         >
-          {session ? 'Go to your Books' : 'Sign in Bookstats'}
+          {session ? (
+            <span>Go to your Books</span>
+          ) : (
+            <div className="flex flex-row justify-between items-center px-4">
+              <GithubIcon className="mr-2 w-12 h-12 bg-white text-black fill-current" />
+              <span>Sign in with Github</span>
+            </div>
+          )}
         </button>
       </div>
 
