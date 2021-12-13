@@ -1,5 +1,8 @@
 ✔ Set up App Context Hook to handling books state @done (09/12/2021, 17:54:49)
 ✔ Check Next Link href in Card and Table components add session.user conditional to @done (24/11/2021, 21:51:49)
-☐ Infinite scroll books with react-query
-☐ Flat array userBooks 
+✔ Infinite scroll books with react-query @done (13/12/2021, 13:16:22)
+✔ Flat array userBooks @done (13/12/2021, 13:16:21)
+☐ Modify next-auth sign in to login directly with GitHub and
+modify the login button
 ☐ Added useMutation (react-query) to books data mutations
+☐ Dark Mode
