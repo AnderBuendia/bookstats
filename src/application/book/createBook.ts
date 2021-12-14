@@ -22,7 +22,7 @@ export function useCreateBook() {
       notifySuccess({ message: AlertMessages.BOOK_CREATED });
 
       return response;
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Error) {
         notifyError({ message: error.message });
       }

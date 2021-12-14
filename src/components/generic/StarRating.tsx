@@ -16,7 +16,7 @@ const StarRating: FC<StarRatingProps> = ({ bookId, bookRating }) => {
   const handleRating = async (rate: number) => {
     const response = await updateRating(rate, bookId);
 
-    if (response) {
+    if (response?.ok) {
       return router.push(MainPaths.BOOKS);
     }
   };

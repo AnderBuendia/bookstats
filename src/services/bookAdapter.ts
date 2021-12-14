@@ -3,6 +3,7 @@ import { BookService } from '@Interfaces/ports/book.interface';
 import { RestEndPoints } from '@Enums/paths/rest-endpoints.enum';
 import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
 import { FormValuesEditBookForm } from '@Types/forms/edit-book-form.type';
+import { FetchDataBook } from '@Types/api-request/get-user-books.type';
 
 export function useBook(): BookService {
   const createBookRequest = async (
@@ -61,7 +62,10 @@ export function useBook(): BookService {
   };
 }
 
-export const getUserBooksRequest = async (userId: string, pageParam = '') => {
+export const getUserBooksRequest = async (
+  userId: string,
+  pageParam = ''
+): Promise<FetchDataBook> => {
   const fetchBooksUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${RestEndPoints.BOOKS}?uid=${userId}&cursor=${pageParam}`;
   const response = await fetch(fetchBooksUrl);
 

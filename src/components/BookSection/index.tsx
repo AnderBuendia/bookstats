@@ -39,7 +39,7 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
   const handleDeleteBook = async () => {
     const response = await deleteBook(id, session?.user?.email);
 
-    if (response) {
+    if (response?.ok) {
       return router.push(MainPaths.BOOKS);
     }
   };
