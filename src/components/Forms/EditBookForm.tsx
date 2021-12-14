@@ -42,7 +42,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
   const onSubmit = handleSubmit(async (data) => {
     const response = await editBook(data, id, session?.user?.email);
 
-    if (response) {
+    if (response?.ok) {
       return router.push(MainPaths.BOOKS);
     }
   });

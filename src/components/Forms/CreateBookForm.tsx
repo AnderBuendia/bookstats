@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
+import { BookStatus } from '@prisma/client';
 import { useCreateBook } from '@Application/book/createBook';
 import { getColorStatus } from '@Domain/book';
 import Input from '@Components/Forms/Input';
@@ -9,7 +10,6 @@ import Select from '@Components/Forms/Select';
 import { FormMessages } from '@Enums/config/messages.enum';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
-import { BookStatus } from '@prisma/client';
 
 const CreateBookForm: FC = () => {
   const { data: session } = useSession();
@@ -32,7 +32,7 @@ const CreateBookForm: FC = () => {
   const onSubmit = handleSubmit(async (data) => {
     const response = await createBook(data, session?.user?.email);
 
-    if (response) {
+    if (response?.ok) {
       return router.push(MainPaths.BOOKS);
     }
   });
