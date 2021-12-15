@@ -49,7 +49,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
 
   return (
     <form
-      className="container mx-auto p-6 bg-white rounded-md shadow-md"
+      className="container mx-auto p-6 bg-white dark:bg-gray-700 rounded-md shadow-md"
       onSubmit={onSubmit}
     >
       <h2 className="text-3xl pb-2 font-black text-center">Edit this book</h2>
@@ -116,7 +116,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
           <span>Review</span>
         </label>
         <textarea
-          className="bg-white font-body shadow appearance-none border rounded w-full h-28 p-2
+          className="bg-white dark:bg-gray-400 shadow-gray-800/50 font-body shadow appearance-none rounded w-full h-28 p-2
              text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Write your review here... (optional)"
           {...register('review')}

@@ -54,27 +54,30 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
         />
       )}
 
-      <div className="container mx-auto p-5 bg-white rounded-md shadow-md mb-4">
+      <div className="container mx-auto p-5 bg-white dark:bg-gray-700 rounded-md shadow-md mb-4">
         <div className="flex flex-row justify-between items-center">
           <h1 className="font-bold text-lg ">{title}</h1>
-          <h3 className="font-light text-gray-500">{author}</h3>
+          <h3 className="font-light text-gray-500 dark:text-white">{author}</h3>
         </div>
         <div className="my-4 flex flex-row justify-between items-center">
           <p>
-            Pages <span className="ml-1 font-light text-gray-500">{pages}</span>
+            Pages{' '}
+            <span className="ml-1 font-light text-gray-500 dark:text-white">
+              {pages}
+            </span>
           </p>
           <StarRating bookId={id} bookRating={rating} />
         </div>
         <div className="w-full flex flex-row justify-between items-center text-center rounded-md border p-2">
           <div className="w-1/3 flex flex-col">
             <p>Time left</p>
-            <p className="text-gray-500 font-light">
+            <p className="text-gray-500 dark:text-white font-light">
               {readPagesAvgMins(pages, status, read_pages)} <span>mins</span>
             </p>
           </div>
           <div className="w-1/3 flex flex-col border-r border-l">
             <p>Start at</p>
-            <p className="text-gray-500 font-light">
+            <p className="text-gray-500 dark:text-white font-light">
               {status === BookStatus.READING
                 ? formatDate(createdAt)
                 : 'Not Yet'}
@@ -82,7 +85,10 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
           </div>
           <div className="w-1/3 flex flex-col ">
             <p>Completed at</p>
-            <p id="completed-date" className="text-gray-500 font-light">
+            <p
+              id="completed-date"
+              className="text-gray-500 dark:text-white font-light"
+            >
               {status === BookStatus.COMPLETED
                 ? formatDate(updatedAt)
                 : 'Not Yet'}
@@ -90,9 +96,9 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
           </div>
         </div>
         {review && (
-          <div className="w-full mt-3">
+          <div className="w-full mt-4">
             <p>Review</p>
-            <div className="mt-1 p-2 bg-gray-200 rounded-md text-black">
+            <div className="mt-2 py-2 px-3 bg-gray-200 dark:bg-gray-500 rounded-md text-black dark:text-white">
               {review}
             </div>
           </div>
@@ -111,7 +117,7 @@ const BookSection: FC<BookSectionProps> = ({ book }) => {
           </button>
 
           <button
-            className="btn-menu bg-rose-500 shadow-rose-500/50"
+            className="btn-menu bg-rose-600 shadow-rose-600/50"
             onClick={() => setShowModalDelete(true)}
           >
             <span>Delete Book</span>

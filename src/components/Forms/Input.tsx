@@ -26,7 +26,7 @@ const Input: FC<InputProps> = ({
         <span>{label}</span>
       </label>
       <input
-        className="bg-white font-body shadow appearance-none border rounded w-full p-2 
+        className="bg-white shadow-gray-800/50 dark:bg-gray-400 dark:placeholder-white dark:text-white font-body shadow appearance-none rounded w-full p-2 
         text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
         type={type}
         placeholder={placeholder}

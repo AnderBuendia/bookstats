@@ -34,7 +34,7 @@ const BooksList: FC = () => {
 
       {hasNextPage && (
         <button
-          className="w-4/12 p-1 mt-6 font-bold bg-indigo-300 shadow-indigo-300/50 shadow-md border border-indigo-300 text-indigo-600 
+          className="w-4/12 p-1 mt-6 font-bold bg-indigo-600 shadow-indigo-600/50 text-white shadow-md 
           rounded-sm hover:opacity-70 transition-opacity duration-500 ease-out"
           onClick={() => fetchNextPage()}
         >

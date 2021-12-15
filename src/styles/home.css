@@ -1,25 +1,30 @@
 .index-title {
   @apply z-10 opacity-0 relative text-6xl 
-    font-bold text-black;
+    font-bold;
   transform: translateY(-600px);
   animation: 0.9s slideIn ease-in-out forwards;
 }
 
 .index-button {
   transform: translateY(-600px);
-  animation: 1.3s slideIn ease-in-out forwards;
+  animation: 0.7s slideIn ease-in-out forwards;
+}
+
+.index-dark-mode-button {
+  transform: translateY(-600px);
+  animation: 1.2s slideIn ease-in-out forwards;
 }
 
 .index-table {
-  @apply w-0 z-10 relative mb-4 shadow-md overflow-hidden 
-    border-b border-gray-200 rounded-md;
+  @apply w-0 z-10 relative mb-4 shadow-lg overflow-hidden 
+    shadow-gray-700/50 dark:shadow-gray-800/100 rounded-md;
   transform: translateX(-600px);
-  animation: 1.7s slideInX ease-in-out forwards;
+  animation: 1.6s slideInX ease-in-out forwards;
 }
 
 th {
   @apply px-6 py-3 text-center text-sm font-bold 
-    text-indigo-700 uppercase tracking-wider;
+    text-indigo-700 dark:text-indigo-200 uppercase tracking-wider;
 }
 
 @keyframes skewBg {

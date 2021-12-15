@@ -30,8 +30,9 @@ const Card: FC<CardProps> = ({ books, session }) => {
             passHref
           >
             <div
-              className="w-full mb-3 p-4 bg-white border shadow-lg rounded-lg cursor-pointer
-              transition duration-500 ease-in-out transform hover:scale-105 hover:shadow-md hover:opacity-75"
+              className="w-full mb-3 p-4 border shadow-lg rounded-lg dark:bg-gray-700 cursor-pointer
+                transition duration-500 ease-in-out transform hover:scale-105 hover:shadow-md hover:opacity-75
+                dark:border-gray-800"
             >
               <div className="flex flex-row justify-between items-center">
                 <p className="text-md text-left">{book.title}</p>
