@@ -1,10 +1,11 @@
 .btn-form {
-  @apply bg-pink-500 flex flex-row items-center justify-center
-  text-white w-full mt-6 shadow-md p-2 rounded;
+  @apply bg-pink-600 shadow-pink-600/50 shadow-md flex flex-row items-center justify-center
+  text-white w-full mt-6 p-2 rounded hover:opacity-70 transition-opacity 
+  duration-500 ease-out;
 }
 
 .btn-menu {
-  @apply w-6/12 p-3 font-bold bg-emerald-500 shadow-md shadow-emerald-500/50 text-white 
+  @apply w-6/12 p-3 font-bold bg-emerald-600 shadow-md shadow-emerald-600/50 text-white 
   rounded-md hover:opacity-70 transition-opacity 
   duration-500 ease-out text-center;
 }

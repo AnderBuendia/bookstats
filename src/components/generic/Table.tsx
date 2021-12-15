@@ -17,9 +17,9 @@ const Table: FC<TableProps> = ({ books, session }) => {
   const { pathname } = useRouter();
 
   return (
-    <div className="w-full shadow overflow-x-auto border-b border-gray-200 rounded-lg">
-      <table className="w-full divide-y divide-gray-200">
-        <thead className="bg-indigo-300">
+    <div className="w-full shadow-sm shadow-gray-800/100 overflow-x-auto rounded-lg">
+      <table className="w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead className="bg-indigo-300 dark:bg-indigo-600">
           <tr>
             <th>Name</th>
             <th>Author</th>
@@ -28,7 +28,7 @@ const Table: FC<TableProps> = ({ books, session }) => {
             <th>Time Left</th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
           {books &&
             books.map((book) => (
               <Link
@@ -40,14 +40,16 @@ const Table: FC<TableProps> = ({ books, session }) => {
                 }
                 passHref
               >
-                <tr className="bg-gray-50 text-center cursor-pointer transition duration-500 ease-in transform hover:scale-95 hover:bg-gray-50">
+                <tr className="text-center cursor-pointer transition duration-500 ease-in transform hover:scale-95">
                   <td className="p-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-gray-900 dark:text-white">
                       {book.title}
                     </div>
                   </td>
                   <td className="p-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{book.author}</div>
+                    <div className="text-sm text-gray-900 dark:text-white">
+                      {book.author}
+                    </div>
                   </td>
                   <td className="p-4 whitespace-nowrap">
                     <span
@@ -58,11 +60,11 @@ const Table: FC<TableProps> = ({ books, session }) => {
                       {formatStatusText(book.status)}
                     </span>
                   </td>
-                  <td className="text-gray-500 whitespace-nowrap">
+                  <td className="whitespace-nowrap">
                     <StarRating bookId={book.id} bookRating={book.rating} />
                   </td>
                   <td className="p-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
+                    <div className="text-sm text-gray-900 dark:text-white">
                       {readPagesAvgMins(
                         book.pages,
                         book.status,

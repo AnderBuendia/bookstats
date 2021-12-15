@@ -39,7 +39,7 @@ const CreateBookForm: FC = () => {
 
   return (
     <form
-      className="container mx-auto w-11/12 bg-white shadow-md rounded-md p-6"
+      className="container mx-auto w-11/12 shadow-md rounded-md p-6 bg-white dark:bg-gray-700"
       onSubmit={onSubmit}
     >
       <h2 className="font-bold text-xl text-center">Add New Book</h2>
