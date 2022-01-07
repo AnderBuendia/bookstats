@@ -5,18 +5,18 @@ import { useAuthenticate } from '@Application/authenticate';
 import { useResolution } from '@Lib/hooks/useResolution';
 import Table from '@Components/generic/Table';
 import Card from '@Components/generic/Card';
-import { ResolutionBreakPoints } from '@Enums/config/resolution-breakpoints.enum';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { DataStatus } from '@Enums/data-status.enum';
+import { LoadingIcon } from '@Components/Icons/loading.icon';
 
 const BooksList: FC = () => {
-  const width = useResolution();
+  const isNarrowScreen = useResolution();
   const { session } = useAuthenticate();
   const { data, status, fetchNextPage, hasNextPage } = useGetUserBooks({
     userId: session?.uid as string,
   });
 
-  if (status === DataStatus.LOADING) return <div>Loading...</div>;
+  if (status === DataStatus.LOADING) return <LoadingIcon />;
 
   const userBooks = data?.pages.map((group) => group.books).flat();
 
@@ -26,10 +26,10 @@ const BooksList: FC = () => {
         <a className="btn-menu mb-4">ADD NEW BOOK</a>
       </Link>
 
-      {status === DataStatus.SUCCESS && width > ResolutionBreakPoints.SM ? (
-        <Table books={userBooks} session={session} />
-      ) : (
+      {isNarrowScreen ? (
         <Card books={userBooks} session={session} />
+      ) : (
+        <Table books={userBooks} session={session} />
       )}
 
       {hasNextPage && (

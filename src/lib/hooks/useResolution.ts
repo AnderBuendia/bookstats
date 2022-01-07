@@ -1,25 +1,34 @@
 import { useState, useEffect } from 'react';
+import { ResolutionBreakPoints } from '@Enums/config/resolution-breakpoints.enum';
 
 export const useResolution = () => {
-  const [windowDimensions, setWindowDimensions] = useState(0);
+  const [isNarrowScreen, setIsNarrowScreen] = useState(false);
 
   useEffect(() => {
-    let timer: number;
-    const handleResize = () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
+    const mediaWatcher: MediaQueryList = window.matchMedia(
+      ResolutionBreakPoints.SM
+    );
 
-      timer = window.setTimeout(() => {
-        setWindowDimensions(window.innerWidth);
-      }, 100);
-    };
+    setIsNarrowScreen(mediaWatcher.matches);
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    function updateIsNarrowScreen(e: any) {
+      setIsNarrowScreen(e.matches);
+    }
 
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    if (mediaWatcher.addEventListener) {
+      mediaWatcher.addEventListener('change', updateIsNarrowScreen);
 
-  return windowDimensions;
+      return function cleanup() {
+        mediaWatcher.removeEventListener('change', updateIsNarrowScreen);
+      };
+    } else {
+      mediaWatcher.addListener(updateIsNarrowScreen);
+
+      return function cleanup() {
+        mediaWatcher.removeListener(updateIsNarrowScreen);
+      };
+    }
+  });
+
+  return isNarrowScreen;
 };

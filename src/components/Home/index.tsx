@@ -7,12 +7,11 @@ import Table from '@Components/generic/Table';
 import Card from '@Components/generic/Card';
 import DarkModeButton from '@Components/generic/DarkModeButton';
 import { GithubIcon } from '@Components/Icons/github.icon';
-import { ResolutionBreakPoints } from '@Enums/config/resolution-breakpoints.enum';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 const Home: FC = () => {
   const { session, signIn } = useAuthenticate();
-  const width = useResolution();
+  const isNarrowScreen = useResolution();
   const router = useRouter();
 
   const handleClick = () => {
@@ -31,16 +30,19 @@ const Home: FC = () => {
 
       <div className="index-button my-8">
         <button
+          id="github-button"
           className="py-1 font-bold bg-black text-white shadow-lg rounded-lg hover:opacity-60 
           transition-opacity duration-500 ease-out"
           onClick={handleClick}
         >
           {session ? (
-            <span>Go to your Books</span>
+            <div className="px-8 py-2">
+              <span>Go to your Books</span>
+            </div>
           ) : (
-            <div className="flex flex-row justify-between items-center px-4">
-              <GithubIcon className="mr-2 w-12 h-12 bg-white text-black fill-current" />
-              <span>Sign in with Github</span>
+            <div className="flex flex-row justify-between items-center px-4 p-1">
+              <GithubIcon className="mr-3 w-10 h-10" />
+              <span>Sign in with GitHub</span>
             </div>
           )}
         </button>
@@ -53,10 +55,10 @@ const Home: FC = () => {
           <div className="w-3 h-3 ml-2 bg-green-500 rounded-full"></div>
         </div>
         <div className="dark:bg-gray-600 p-6 px-4">
-          {width > ResolutionBreakPoints.SM ? (
-            <Table books={HomeBooks} session={session} />
-          ) : (
+          {isNarrowScreen ? (
             <Card books={HomeBooks} session={session} />
+          ) : (
+            <Table books={HomeBooks} session={session} />
           )}
         </div>
       </div>
