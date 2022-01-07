@@ -1,5 +1,5 @@
 export enum ResolutionBreakPoints {
-  XS = 480,
-  SM = 768,
-  MD = 1024,
+  XS = '(max-width: 480px)',
+  SM = '(max-width: 768px)',
+  MD = '(max-width: 1024px)',
 }
