@@ -1,7 +1,11 @@
 export const createHtmlTag = (label: string) => {
-  return label.replaceAll(' ', '-').toLowerCase();
+  const whiteSpaces = /\s/g;
+
+  return label.replace(whiteSpaces, '-').toLowerCase();
 };
 
 export const formatStatusText = (status: string) => {
-  return status.replaceAll('_', ' ');
+  const underScores = /_/gi;
+
+  return status.replace(underScores, ' ');
 };
