@@ -1,4 +1,4 @@
-import { FC, ComponentProps } from 'react';
+import type { FC, ComponentProps } from 'react';
 
 export const LoadingIcon: FC<ComponentProps<'svg'>> = (props) => {
   return (

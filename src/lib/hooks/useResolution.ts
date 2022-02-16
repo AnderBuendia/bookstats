@@ -28,7 +28,7 @@ export const useResolution = () => {
         mediaWatcher.removeListener(updateIsNarrowScreen);
       };
     }
-  });
+  }, [isNarrowScreen]);
 
   return isNarrowScreen;
 };

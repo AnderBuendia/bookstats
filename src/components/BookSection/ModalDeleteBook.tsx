@@ -1,4 +1,4 @@
-import { FC, MutableRefObject, Dispatch, SetStateAction } from 'react';
+import type { FC, MutableRefObject, Dispatch, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 import { useClickOutside } from '@Lib/hooks/useClickOutside';
 
