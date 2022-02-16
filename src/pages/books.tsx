@@ -5,11 +5,11 @@ import type {
 } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { getSession } from 'next-auth/react';
+import { getUserBooksRequest } from '@Services/bookAdapter';
 import MainLayout from '@Components/Layouts/MainLayout';
 import BooksList from '@Components/BooksList';
-import { GSSProps } from '@Interfaces/props/gss-props.interface';
+import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { getUserBooksRequest } from '@Services/bookAdapter';
 
 const BooksPage: NextPage = () => {
   return (

@@ -6,7 +6,7 @@ import type {
 import { getSession } from 'next-auth/react';
 import MainLayout from '@Components/Layouts/MainLayout';
 import Home from '@Components/Home';
-import { GSSProps } from '@Interfaces/props/gss-props.interface';
+import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 const HomePage: NextPage = () => {

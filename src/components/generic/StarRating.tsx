@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { Rating, RatingView } from 'react-simple-star-rating';
 import { MainPaths } from '@Enums/paths/main-paths.enum';

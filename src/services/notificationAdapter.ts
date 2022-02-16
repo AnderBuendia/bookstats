@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-import { NotificationService } from '@Interfaces/ports/notification.interface';
+import type { NotificationService } from '@Interfaces/ports/notification.interface';
 
 export function useNotifier(): NotificationService {
   const notifySuccess = ({ message }: { message: string }) => {

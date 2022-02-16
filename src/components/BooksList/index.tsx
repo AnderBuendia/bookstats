@@ -1,13 +1,13 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import Link from 'next/link';
 import { useGetUserBooks } from '@Application/book/getUserBooks';
 import { useAuthenticate } from '@Application/authenticate';
 import { useResolution } from '@Lib/hooks/useResolution';
 import Table from '@Components/generic/Table';
 import Card from '@Components/generic/Card';
+import { LoadingIcon } from '@Components/Icons/loading.icon';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { DataStatus } from '@Enums/data-status.enum';
-import { LoadingIcon } from '@Components/Icons/loading.icon';
 
 const BooksList: FC = () => {
   const isNarrowScreen = useResolution();

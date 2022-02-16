@@ -6,7 +6,7 @@ import type {
 import { getSession } from 'next-auth/react';
 import MainLayout from '@Components/Layouts/MainLayout';
 import CreateBookForm from '@Components/Forms/CreateBookForm';
-import { GSSProps } from '@Interfaces/props/gss-props.interface';
+import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 const CreateBookPage: NextPage = () => {

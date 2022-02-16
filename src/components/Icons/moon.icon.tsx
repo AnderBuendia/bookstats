@@ -1,4 +1,4 @@
-import { FC, ComponentProps } from 'react';
+import type { FC, ComponentProps } from 'react';
 
 export const MoonIcon: FC<ComponentProps<'svg'>> = (props) => (
   <svg {...props} width="448pt" height="448pt" viewBox="-12 0 448 448.045">

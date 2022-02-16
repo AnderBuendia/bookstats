@@ -1,6 +1,5 @@
 import '@Styles/globals.css';
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
@@ -8,9 +7,9 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { SessionProvider } from 'next-auth/react';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'next-themes';
-import { GSSProps } from '@Interfaces/props/gss-props.interface';
+import Header from '@Components/Header';
+import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-const Header = dynamic(import('@Components/Header'));
 
 interface CustomAppProps extends AppProps {
   pageProps: GSSProps;
