@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
@@ -9,7 +9,7 @@ import Input from '@Components/Forms/Input';
 import Select from '@Components/Forms/Select';
 import { FormMessages } from '@Enums/config/messages.enum';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
+import type { FormValuesCreateBookForm } from '@Types/forms/create-book-form.type';
 
 const CreateBookForm: FC = () => {
   const { data: session } = useSession();

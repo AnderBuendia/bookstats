@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import NextHead from 'next/head';
 
 export type HeadProps = {

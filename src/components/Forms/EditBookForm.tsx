@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
@@ -9,8 +9,8 @@ import { useEditBook } from '@Application/book/editBook';
 import Input from '@Components/Forms/Input';
 import Select from '@Components/Forms/Select';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { FormValuesEditBookForm } from '@Types/forms/edit-book-form.type';
 import { FormMessages } from '@Enums/config/messages.enum';
+import type { FormValuesEditBookForm } from '@Types/forms/edit-book-form.type';
 
 export type EditBookFormProps = {
   book: Book;

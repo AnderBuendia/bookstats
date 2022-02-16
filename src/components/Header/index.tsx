@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import Link from 'next/link';
 import { useAuthenticate } from '@Application/authenticate';
 import DarkModeButton from '@Components/generic/DarkModeButton';
