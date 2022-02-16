@@ -51,7 +51,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: books.map((book) => ({
       params: { id: book.id },
     })),
-    fallback: true,
+    fallback: 'blocking',
   };
 };
 
@@ -70,6 +70,7 @@ export const getStaticProps: GetStaticProps = async (
 
   return {
     props,
+    revalidate: 60,
   };
 };
 
