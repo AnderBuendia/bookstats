@@ -2,4 +2,5 @@
 module.exports = {
   swcMinify: true,
   reactStrictMode: true,
+  staticPageGenerationTimeout: 70,
 };
