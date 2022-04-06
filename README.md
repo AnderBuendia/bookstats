@@ -48,4 +48,4 @@ npm run dev
 
 ## Notes
 
-To access website: https://bookstats.anderb.me/
+To access website: https://bookstats.anderb.info/
