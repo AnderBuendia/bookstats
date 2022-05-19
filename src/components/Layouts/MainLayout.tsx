@@ -18,9 +18,7 @@ const MainLayout: FC<MainLayoutProps> = ({
     <>
       <Head title={title} description={description} url={url} />
 
-      <div className="container mx-auto w-full flex justify-center items-center py-5">
-        {children}
-      </div>
+      <main className="container m-auto md:w-8/12 p-8">{children}</main>
     </>
   );
 };

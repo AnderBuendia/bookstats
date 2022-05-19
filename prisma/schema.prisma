@@ -68,7 +68,7 @@ model Book {
   pages       Int        @default(0)
   image       String?
   review      String?
-  read_pages  Int[]
+  readPages  Int[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }

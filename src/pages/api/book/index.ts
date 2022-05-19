@@ -12,7 +12,7 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const { title, author, status, pages } = req.body.data;
+  const { title, author, status, pages, rating, readPages } = req.body.book;
 
   try {
     const result = await prisma.book.create({
@@ -20,7 +20,9 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
         title,
         author,
         status,
-        pages: parseInt(pages),
+        pages,
+        rating,
+        readPages,
         user: { connect: { email: req.body.email } },
       },
     });

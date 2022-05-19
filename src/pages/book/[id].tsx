@@ -6,26 +6,26 @@ import type {
 } from 'next';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
-import { useGetBook } from '@Application/book/getBook';
+import { useFindBookUseCase } from '@Application/book/find-book.use-case';
 import prisma from '@Lib/utils/prisma.utils';
 import withCSRRedirect from '@Lib/hoc/with-csr-redirect.hoc';
-import { getBookRequest } from '@Services/bookAdapter';
+import { findBookRequest } from '@Services/book.service';
 import BookSection from '@Components/BookSection';
 import MainLayout from '@Components/Layouts/MainLayout';
-import { GSSProps } from '@Interfaces/props/gss-props.interface';
-import { IRedirect } from '@Interfaces/redirect.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { RedirectConditions } from '@Enums/config/redirect-conditions.enum';
+import type { GSSProps } from '@Interfaces/props/gss-props.interface';
+import type { IRedirect } from '@Interfaces/redirect.interface';
 
 const BookPage: NextPage = () => {
   const router = useRouter();
   const { query } = router;
   const bookId = typeof query?.id === 'string' ? query?.id : '';
 
-  const { data: book, isLoading } = useGetBook(bookId);
+  const { data: book, isLoading } = useFindBookUseCase(bookId);
 
   if (isLoading) return <div>Loading...</div>;
-  if (!book) return null;
+  else if (!book) return null;
 
   return (
     <MainLayout
@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps = async (
   const bookId = ctx.params?.id as string;
 
   await queryClient.prefetchQuery(['book', bookId], () =>
-    getBookRequest(bookId)
+    findBookRequest(bookId)
   );
 
   props.dehydratedState = dehydrate(queryClient);

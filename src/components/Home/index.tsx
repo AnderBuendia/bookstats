@@ -21,7 +21,7 @@ const Home: FC = () => {
   };
 
   return (
-    <div className="w-11/12 lg:w-8/12 flex-col text-center">
+    <div className="flex flex-col justify-center items-center">
       <div className="index-dark-mode-button mb-16">
         <DarkModeButton />
       </div>
