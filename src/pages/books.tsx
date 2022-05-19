@@ -5,11 +5,11 @@ import type {
 } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { getSession } from 'next-auth/react';
-import { getUserBooksRequest } from '@Services/bookAdapter';
+import { findUserBooksRequest } from '@Services/book.service';
 import MainLayout from '@Components/Layouts/MainLayout';
 import BooksList from '@Components/BooksList';
-import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
+import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 
 const BooksPage: NextPage = () => {
   return (
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const userId = session.uid as string;
 
   await queryClient.prefetchQuery(['books', userId], () =>
-    getUserBooksRequest(userId)
+    findUserBooksRequest(userId)
   );
 
   props.session = session;

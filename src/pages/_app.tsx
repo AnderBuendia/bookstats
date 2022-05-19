@@ -8,8 +8,8 @@ import { SessionProvider } from 'next-auth/react';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'next-themes';
 import Header from '@Components/Header';
-import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
+import type { GSSProps } from '@Interfaces/props/gss-props.interface';
 
 interface CustomAppProps extends AppProps {
   pageProps: GSSProps;
@@ -25,9 +25,11 @@ const MyApp: NextPage<CustomAppProps> = ({ Component, pageProps }) => {
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={dehydratedState}>
-            <div className="min-h-screen">
+            <div className="flex flex-col min-h-screen">
               {pathname !== MainPaths.INDEX && <Header />}
+
               <Component {...componentProps} />
+
               <Toaster
                 position="top-center"
                 toastOptions={{

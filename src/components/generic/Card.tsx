@@ -1,15 +1,14 @@
 import type { FC } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { Session } from 'next-auth';
-import type { Book } from '@prisma/client';
 import { formatStatusText } from '@Lib/utils/format-text.utils';
-import { getColorStatus } from '@Domain/book';
+import { urlRedirectBook, getColorStatus } from '@Lib/utils/book.utils';
 import StarRating from '@Components/generic/StarRating';
-import { MainPaths } from '@Enums/paths/main-paths.enum';
+import type { IBook } from '@Interfaces/domain/book.interface';
 
 export type CardProps = {
-  books?: Book[];
+  books: IBook[];
   session: Session | null;
 };
 
@@ -18,40 +17,35 @@ const Card: FC<CardProps> = ({ books, session }) => {
 
   return (
     <>
-      {books &&
-        books.map((book) => (
-          <Link
-            key={book.id}
-            href={
-              pathname !== MainPaths.INDEX && session
-                ? `${MainPaths.BOOK}/${book.id}`
-                : '#'
-            }
-            passHref
-          >
-            <div
-              className="w-full mb-3 p-4 border shadow-lg rounded-lg dark:bg-gray-700 cursor-pointer
+      {books.map((book) => (
+        <Link
+          key={book.id}
+          href={urlRedirectBook({ bookId: book.id, session, pathname })}
+          passHref
+        >
+          <div
+            className="w-full mb-3 p-4 border shadow-lg rounded-lg dark:bg-gray-700 cursor-pointer
                 transition duration-500 ease-in-out transform hover:scale-105 hover:shadow-md hover:opacity-75
                 dark:border-gray-800"
-            >
-              <div className="flex flex-row justify-between items-center">
-                <p className="text-md text-left">{book.title}</p>
-                <p className="text-sm text-left">{book.author}</p>
-              </div>
-
-              <div className="w-full mt-4 flex flex-row justify-between items-center">
-                <p
-                  className={`${getColorStatus(
-                    book.status
-                  )} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
-                >
-                  {formatStatusText(book.status)}
-                </p>
-                <StarRating bookId={book.id} bookRating={book.rating} />
-              </div>
+          >
+            <div className="flex flex-row justify-between items-center">
+              <p className="text-md text-left">{book.title}</p>
+              <p className="text-sm text-left">{book.author}</p>
             </div>
-          </Link>
-        ))}
+
+            <div className="w-full mt-4 flex flex-row justify-between items-center">
+              <p
+                className={`${getColorStatus(
+                  book.status
+                )} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
+              >
+                {formatStatusText(book.status)}
+              </p>
+              <StarRating book={book} bookRating={book.rating} />
+            </div>
+          </div>
+        </Link>
+      ))}
     </>
   );
 };

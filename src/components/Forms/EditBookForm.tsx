@@ -2,26 +2,26 @@ import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
-import type { Book } from '@prisma/client';
 import { BookStatus } from '@prisma/client';
-import { getColorStatus, sumReadPages } from '@Domain/book';
-import { useEditBook } from '@Application/book/editBook';
+import { useUpdateBookUseCase } from '@Application/book/edit-book.use-case';
+import { getColorStatus, sumReadPages } from '@Lib/utils/book.utils';
 import Input from '@Components/Forms/Input';
 import Select from '@Components/Forms/Select';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { FormMessages } from '@Enums/config/messages.enum';
+import type { IBook } from '@Interfaces/domain/book.interface';
 import type { FormValuesEditBookForm } from '@Types/forms/edit-book-form.type';
 
 export type EditBookFormProps = {
-  book: Book;
+  book: IBook;
 };
 
 const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
-  const { id, title, author, status, review, pages, read_pages } = book;
+  const { title, author, status, review, pages, readPages } = book;
   const { data: session } = useSession();
   const router = useRouter();
-  const { editBook } = useEditBook();
-  const totalReadPages = sumReadPages(read_pages);
+  const { updateBook } = useUpdateBookUseCase();
+  const totalReadPages = sumReadPages(readPages);
 
   const {
     register,
@@ -32,7 +32,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
     defaultValues: {
       title,
       author,
-      read_pages: 0,
+      readPages: 0,
       status,
       review,
     },
@@ -40,9 +40,9 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
   const watchStatus = watch('status');
 
   const onSubmit = handleSubmit(async (data) => {
-    const response = await editBook(data, id, session?.user?.email);
+    const response = await updateBook(data, book, session?.user?.email);
 
-    if (response?.ok) {
+    if (response) {
       return router.push(MainPaths.BOOKS);
     }
   });
@@ -76,7 +76,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
           type="number"
           placeholder="Number of pages..."
           register={{
-            ...register('read_pages', {
+            ...register('readPages', {
               validate: {
                 lessThanPages: (value) =>
                   Number(value) === 0 ||
@@ -89,7 +89,7 @@ const EditBookForm: FC<EditBookFormProps> = ({ book }) => {
               },
             }),
           }}
-          error={errors.read_pages}
+          error={errors.readPages}
         />
 
         <Select

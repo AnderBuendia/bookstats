@@ -12,6 +12,13 @@ const DarkModeButton: FC = () => {
 
   if (!mounted) return null;
 
+  const showIcon = (theme: string) =>
+    theme === ThemeStyle.DARK ? (
+      <SunIcon className="w-5 h-5 fill-current" />
+    ) : (
+      <MoonIcon className="w-4 h-4 fill-current text-white" />
+    );
+
   return (
     <button
       aria-label="Toggle Dark Mode"
@@ -21,11 +28,7 @@ const DarkModeButton: FC = () => {
         setTheme(theme === ThemeStyle.DARK ? ThemeStyle.LIGHT : ThemeStyle.DARK)
       }
     >
-      {theme === ThemeStyle.DARK ? (
-        <SunIcon className="w-5 h-5 fill-current" />
-      ) : (
-        <MoonIcon className="w-4 h-4 fill-current text-white" />
-      )}
+      {theme && showIcon(theme)}
     </button>
   );
 };
