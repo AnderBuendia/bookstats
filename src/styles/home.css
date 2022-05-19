@@ -16,7 +16,7 @@
 }
 
 .index-table {
-  @apply w-0 z-10 relative mb-4 shadow-lg overflow-hidden 
+  @apply z-10 relative mb-4 shadow-lg overflow-hidden 
     shadow-gray-700/50 dark:shadow-gray-800/100 rounded-md;
   transform: translateX(-600px);
   animation: 1.6s slideInX ease-in-out forwards;

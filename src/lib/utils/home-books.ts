@@ -1,7 +1,8 @@
 import { Book, BookStatus } from '@prisma/client';
+import { IBook } from '@Interfaces/domain/book.interface';
 
 const date = new Date('2021');
-export const HomeBooks: Book[] = [
+export const HomeBooks: IBook[] = [
   {
     id: '1',
     title: 'The Brothers Karamazov',
@@ -9,10 +10,9 @@ export const HomeBooks: Book[] = [
     status: BookStatus.COMPLETED,
     rating: 4,
     pages: 0,
-    userId: 'user1',
     image: null,
     review: null,
-    read_pages: [],
+    readPages: [0],
     createdAt: date,
     updatedAt: date,
   },
@@ -23,10 +23,9 @@ export const HomeBooks: Book[] = [
     status: BookStatus.READING,
     rating: 0,
     pages: 20,
-    userId: 'user2',
     image: null,
     review: null,
-    read_pages: [],
+    readPages: [0],
     createdAt: date,
     updatedAt: date,
   },
@@ -37,10 +36,9 @@ export const HomeBooks: Book[] = [
     status: BookStatus.READY,
     rating: 0,
     pages: 417,
-    userId: 'user3',
     image: null,
     review: null,
-    read_pages: [],
+    readPages: [0],
     createdAt: date,
     updatedAt: date,
   },
@@ -51,10 +49,9 @@ export const HomeBooks: Book[] = [
     status: BookStatus.TO_READ,
     rating: 0,
     pages: 111,
-    userId: 'user4',
     image: null,
     review: null,
-    read_pages: [],
+    readPages: [0],
     createdAt: date,
     updatedAt: date,
   },

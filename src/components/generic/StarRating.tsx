@@ -1,22 +1,24 @@
 import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { Rating, RatingView } from 'react-simple-star-rating';
+import { useUpdateRatingUseCase } from '@Application/book/update-rating.use-case';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
-import { useUpdateRating } from '@Application/book/updateRating';
+import type { IBook } from '@Interfaces/domain/book.interface';
 
 interface StarRatingProps {
-  bookId: string;
   bookRating: number;
+  book: IBook;
 }
 
-const StarRating: FC<StarRatingProps> = ({ bookId, bookRating }) => {
+const StarRating: FC<StarRatingProps> = ({ book, bookRating }) => {
   const router = useRouter();
-  const { updateRating } = useUpdateRating();
+  const { updateRating } = useUpdateRatingUseCase();
 
   const handleRating = async (rate: number) => {
-    const response = await updateRating(rate, bookId);
+    const data = { rate };
+    const response = await updateRating(data, book);
 
-    if (response?.ok) {
+    if (response) {
       return router.push(MainPaths.BOOKS);
     }
   };

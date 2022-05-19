@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@Lib/utils/prisma.utils';
 import { HTTPStatusCodes } from '@Enums/config/http-status-codes.enum';
 import { AlertMessages } from '@Enums/config/messages.enum';
-import { FormValuesEditBookForm } from '@Types/forms/edit-book-form.type';
+import type { BookModel } from '@Interfaces/domain/book.interface';
 
 const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   const bookId = req.query.id as string;
@@ -14,10 +14,8 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method === 'GET') {
       await handleGET(bookId, res);
-    } else if (req.method === 'POST') {
-      await handlePOST(bookId, req.body.data, res);
     } else if (req.method === 'PUT') {
-      await handlePUT(bookId, req.body.rate, res);
+      await handlePUT(req.body.data, res);
     } else if (req.method === 'DELETE') {
       await handleDELETE(bookId, res);
     } else {
@@ -44,34 +42,11 @@ const handleGET = async (bookId: string, res: NextApiResponse) => {
 };
 
 /* POST /api/book/:id */
-const handlePOST = async (
-  bookId: string,
-  data: FormValuesEditBookForm,
-  res: NextApiResponse
-) => {
+const handlePUT = async (book: BookModel, res: NextApiResponse) => {
   const result = await prisma.book.update({
-    where: { id: bookId },
+    where: { id: book.id },
     data: {
-      ...data,
-      read_pages: {
-        push: data.read_pages && Number(data.read_pages),
-      },
-    },
-  });
-
-  res.status(HTTPStatusCodes.OK).json(result);
-};
-
-/* PUT /api/book/:id */
-const handlePUT = async (
-  bookId: string,
-  rate: number,
-  res: NextApiResponse
-) => {
-  const result = await prisma.book.update({
-    where: { id: bookId },
-    data: {
-      rating: rate,
+      ...book,
     },
   });
 

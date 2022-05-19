@@ -11,7 +11,7 @@ const Header: FC = () => {
   const { signOut } = useAuthenticate();
 
   return (
-    <nav className="flex flex-row justify-between items-center border-b border-gray-300 dark:border-gray-700 shadow-sm px-3 py-1">
+    <header className="flex flex-row justify-between items-center border-b border-gray-300 dark:border-gray-700 shadow-sm px-3 py-1">
       <Link href={MainPaths.BOOKS}>
         <a className="px-2 py-1 rounded-lg hover:bg-gray-300" id="icon-books">
           <BooksIcon w={38} h={38} />
@@ -30,7 +30,7 @@ const Header: FC = () => {
           Sign Out
         </button>
       </div>
-    </nav>
+    </header>
   );
 };
 

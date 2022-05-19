@@ -1,4 +1,6 @@
+import type { Session } from 'next-auth';
 import { BookStatus } from '@prisma/client';
+import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 const ACTIONS_COLOR_STATUS: {
   [x: string]: () => string;
@@ -14,20 +16,16 @@ export const getColorStatus = (status: string): string => {
   return actionColorStatus();
 };
 
-export const sumReadPages = (read_pages: number[]): number => {
-  if (read_pages.length === 0) {
-    return 0;
-  } else {
-    return read_pages.reduce((acc, el) => acc + el);
-  }
+export const sumReadPages = (readPages: number[]): number => {
+  return readPages.reduce((acc, el) => acc + el, 0);
 };
 
 export const readPagesAvgMins = (
   pages: number,
   status: string,
-  read_pages: number[]
+  readPages: number[]
 ): number => {
-  const totalReadPages = sumReadPages(read_pages);
+  const totalReadPages = sumReadPages(readPages);
 
   if (status === BookStatus.COMPLETED) {
     return 0;
@@ -36,4 +34,18 @@ export const readPagesAvgMins = (
   }
 
   return Math.round((pages - totalReadPages) * 1.15);
+};
+
+export const urlRedirectBook = ({
+  bookId,
+  session,
+  pathname,
+}: {
+  bookId: string;
+  session: Session | null;
+  pathname: string;
+}) => {
+  return session && pathname !== MainPaths.INDEX
+    ? `${MainPaths.BOOK}/${bookId}`
+    : MainPaths.INDEX;
 };

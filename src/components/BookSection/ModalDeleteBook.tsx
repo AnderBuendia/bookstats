@@ -1,22 +1,20 @@
 import type { FC, MutableRefObject, Dispatch, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 import { useClickOutside } from '@Lib/hooks/useClickOutside';
+import { useRef } from 'react';
 
 export type ModalDeleteBookProps = {
   onDeleteBook: () => void;
-  componentRef: MutableRefObject<HTMLDivElement>;
   handleShowModalDelete: Dispatch<SetStateAction<boolean>>;
 };
 
 const ModalPortal: FC<ModalDeleteBookProps> = ({
   onDeleteBook,
-  componentRef,
   handleShowModalDelete,
 }) => {
   return createPortal(
     <ModalDeleteBook
       onDeleteBook={onDeleteBook}
-      componentRef={componentRef}
       handleShowModalDelete={handleShowModalDelete}
     />,
     document.getElementById('my-portal')!
@@ -25,10 +23,11 @@ const ModalPortal: FC<ModalDeleteBookProps> = ({
 
 const ModalDeleteBook: FC<ModalDeleteBookProps> = ({
   onDeleteBook,
-  componentRef,
   handleShowModalDelete,
 }) => {
-  useClickOutside(componentRef, handleShowModalDelete);
+  const componentRef = useRef() as MutableRefObject<HTMLDivElement>;
+
+  useClickOutside(componentRef, () => handleShowModalDelete(false));
 
   return (
     <div className="flex fixed inset-0 bg-white bg-opacity-70">

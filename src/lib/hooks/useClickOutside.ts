@@ -1,22 +1,24 @@
-import { useEffect, MutableRefObject, Dispatch, SetStateAction } from 'react';
+import type { MutableRefObject } from 'react';
+import { useEffect } from 'react';
 
 export type EventType = MouseEvent | TouchEvent;
 
 export const useClickOutside = (
-  componentRef: MutableRefObject<HTMLDivElement>,
-  setOpen: Dispatch<SetStateAction<boolean>>
+  ref: MutableRefObject<HTMLDivElement>,
+  handler: () => void
 ) => {
   useEffect(() => {
-    document.addEventListener('click', handleClick);
+    document.addEventListener('click', handleClickOutside, true);
 
-    return () => document.removeEventListener('click', handleClick);
-    function handleClick(e: EventType) {
-      if (componentRef && componentRef.current) {
-        const ref = componentRef.current;
-        if (!ref.contains(e.target as Node)) {
-          setOpen(false);
-        }
+    return () =>
+      document.removeEventListener('click', handleClickOutside, true);
+
+    function handleClickOutside(e: EventType) {
+      const componentRef = ref?.current;
+
+      if (componentRef && !componentRef.contains(e.target as Node)) {
+        handler();
       }
     }
-  }, [componentRef, setOpen]);
+  }, [ref, handler]);
 };
