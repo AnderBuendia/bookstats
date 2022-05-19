@@ -34,6 +34,26 @@ cd bookstats
 npm install
 ```
 
+If you need to set up a local PostgreSQL database. In the root folder run this command:
+
+```
+docker-compose up -d
+```
+
+And then, set up database schema with Prisma:
+
+```
+npx prisma generate
+npx prisma migrate dev
+```
+
+If you want to set up a database GUI you can configure it with this command:
+
+```
+npx prisma studio
+```
+
+
 Configure .env files:
 
 ```
