@@ -54,7 +54,7 @@ const Home: FC = () => {
           <div className="w-3 h-3 ml-2 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 ml-2 bg-green-500 rounded-full"></div>
         </div>
-        <div className="dark:bg-gray-600 p-6 px-4">
+        <div className="flex flex-col dark:bg-gray-600 p-6 px-4">
           {isNarrowScreen ? (
             <Card books={HomeBooks} session={session} />
           ) : (

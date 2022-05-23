@@ -38,14 +38,10 @@ export const readPagesAvgMins = (
 
 export const urlRedirectBook = ({
   bookId,
-  session,
-  pathname,
+  isUrlRedirectBook,
 }: {
   bookId: string;
-  session: Session | null;
-  pathname: string;
+  isUrlRedirectBook: boolean | null;
 }) => {
-  return session && pathname !== MainPaths.INDEX
-    ? `${MainPaths.BOOK}/${bookId}`
-    : MainPaths.INDEX;
+  return isUrlRedirectBook ? `${MainPaths.BOOK}/${bookId}` : MainPaths.INDEX;
 };

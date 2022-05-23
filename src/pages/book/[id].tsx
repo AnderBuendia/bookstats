@@ -12,6 +12,7 @@ import withCSRRedirect from '@Lib/hoc/with-csr-redirect.hoc';
 import { findBookRequest } from '@Services/book.service';
 import BookSection from '@Components/BookSection';
 import MainLayout from '@Components/Layouts/MainLayout';
+import Loading from '@Components/generic/Loading';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { RedirectConditions } from '@Enums/config/redirect-conditions.enum';
 import type { GSSProps } from '@Interfaces/props/gss-props.interface';
@@ -24,7 +25,7 @@ const BookPage: NextPage = () => {
 
   const { data: book, isLoading } = useFindBookUseCase(bookId);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   else if (!book) return null;
 
   return (

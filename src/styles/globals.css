@@ -3,3 +3,7 @@
 @tailwind utilities;
 @import './home.css';
 @import './form.css';
+
+.disabled {
+  @apply pointer-events-none;
+}
