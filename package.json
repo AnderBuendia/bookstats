@@ -7,11 +7,13 @@
     "start": "next start",
     "start-test": "NODE_ENV=test next start",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "1.0.3",
     "@prisma/client": "3.13.0",
+    "jest-mock-extended": "2.0.6",
     "next": "12.1.6",
     "next-auth": "4.3.4",
     "next-themes": "0.2.0",
@@ -24,6 +26,10 @@
     "uuid-random": "1.3.2"
   },
   "devDependencies": {
+    "@swc/core": "1.2.187",
+    "@swc/jest": "0.2.21",
+    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/react": "13.2.0",
     "@types/node": "17.0.31",
     "@types/react": "18.0.8",
     "@types/react-dom": "18.0.3",
@@ -31,6 +37,10 @@
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.6",
     "husky": "7.0.4",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "28.1.0",
+    "jest-environment-jsdom": "28.1.0",
+    "next-router-mock": "^0.6.9",
     "postcss": "8.4.13",
     "prisma": "3.13.0",
     "tailwindcss": "3.0.24",

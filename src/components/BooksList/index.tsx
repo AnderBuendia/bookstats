@@ -5,7 +5,7 @@ import { useAuthenticate } from '@Application/authenticate';
 import { useResolution } from '@Lib/hooks/useResolution';
 import Table from '@Components/generic/Table';
 import Card from '@Components/generic/Card';
-import { LoadingIcon } from '@Components/Icons/loading.icon';
+import Loading from '@Components/generic/Loading';
 import { MainPaths } from '@Enums/paths/main-paths.enum';
 import { DataStatus } from '@Enums/data-status.enum';
 
@@ -16,12 +16,7 @@ const BooksList: FC = () => {
     userId: session?.uid as string,
   });
 
-  if (status === DataStatus.LOADING)
-    return (
-      <div className="flex flex-col justify-center items-center">
-        <LoadingIcon />
-      </div>
-    );
+  if (status === DataStatus.LOADING) return <Loading />;
   else if (!data) return null;
 
   const userBooks = data.pages.map((group) => group.books).flat();

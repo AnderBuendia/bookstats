@@ -10,6 +10,7 @@ import {
 import { formatStatusText } from '@Lib/utils/format-text.utils';
 import StarRating from '@Components/generic/StarRating';
 import type { IBook } from '@Interfaces/domain/book.interface';
+import { MainPaths } from '@Enums/paths/main-paths.enum';
 
 interface TableProps {
   books: IBook[];
@@ -18,6 +19,7 @@ interface TableProps {
 
 const Table: FC<TableProps> = ({ books, session }) => {
   const { pathname } = useRouter();
+  const isUrlRedirectBook = session && pathname !== MainPaths.INDEX;
 
   return (
     <div className="w-full shadow-sm shadow-gray-800/100 overflow-x-auto rounded-lg">
@@ -35,10 +37,16 @@ const Table: FC<TableProps> = ({ books, session }) => {
           {books.map((book) => (
             <Link
               key={book.id}
-              href={urlRedirectBook({ bookId: book.id, session, pathname })}
+              href={urlRedirectBook({ bookId: book.id, isUrlRedirectBook })}
               passHref
             >
-              <tr className="text-center cursor-pointer transition duration-500 ease-in transform hover:scale-95">
+              <tr
+                className={`${
+                  isUrlRedirectBook
+                    ? 'pointer-events-auto'
+                    : 'pointer-events-none'
+                } text-center cursor-pointer transition duration-500 ease-in transform hover:scale-95`}
+              >
                 <td className="p-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900 dark:text-white">
                     {book.title}
